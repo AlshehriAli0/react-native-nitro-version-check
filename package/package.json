@@ -31,6 +31,7 @@
   "scripts": {
     "prepack": "cp ../README.md ./README.md",
     "postpack": "rm ./README.md",
+    "release": "release-it",
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "lint": "biome check .",
@@ -76,12 +77,35 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release v${version}",
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": true
+    },
+    "github": {
+      "release": true
+    },
+    "hooks": {
+      "before:init": "bun run build"
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "conventionalcommits",
+        "infile": "../CHANGELOG.md"
+      }
+    }
+  },
   "devDependencies": {
+    "@release-it/conventional-changelog": "^10.0.5",
     "@types/react": "^19.1.03",
     "nitrogen": "*",
     "react": "19.2.0",
     "react-native": "0.83.0",
     "react-native-nitro-modules": "*",
+    "release-it": "^19.2.4",
     "typescript": "^5.8.3"
   },
   "peerDependencies": {

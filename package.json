@@ -6,9 +6,19 @@
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
-    "typecheck": "bun --filter '*' typecheck"
+    "typecheck": "bun --filter '*' typecheck",
+    "postinstall": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "commit-msg": "bunx commitlint --edit $1"
+  },
+  "commitlint": {
+    "extends": ["@commitlint/config-conventional"]
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.4"
+    "@biomejs/biome": "2.4.4",
+    "@commitlint/cli": "^20.4.2",
+    "@commitlint/config-conventional": "^20.4.2",
+    "simple-git-hooks": "^2.13.1"
   }
 }
