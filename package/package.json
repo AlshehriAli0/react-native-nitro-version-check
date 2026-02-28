@@ -1,6 +1,6 @@
 {
   "name": "react-native-nitro-version-check",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "react-native-nitro-version-check",
   "main": "lib/index",
   "module": "lib/index",
