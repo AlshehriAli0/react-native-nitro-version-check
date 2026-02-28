@@ -45,7 +45,21 @@
     "clean:android": "cd ../example && rm -rf android/build android/app/build android/.gradle",
     "clean:all": "bun clean && bun clean:ios && bun clean:android && rm -rf node_modules ../example/node_modules"
   },
-  "keywords": ["react-native", "nitro"],
+  "keywords": [
+    "react-native",
+    "nitro",
+    "version-check",
+    "version",
+    "react-native-nitro-version-check",
+    "react-native-version",
+    "react-native-version-check",
+    "expo",
+    "expo-version-check",
+    "expo-version",
+    "nitro-modules",
+    "nitro-modules-version-check",
+    "nitro-modules-version"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AlshehriAli0/react-native-nitro-version-check.git"
