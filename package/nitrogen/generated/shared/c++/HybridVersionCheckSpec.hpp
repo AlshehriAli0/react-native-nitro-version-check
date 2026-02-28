@@ -16,6 +16,7 @@
 
 
 #include <string>
+#include <NitroModules/Promise.hpp>
 
 namespace margelo::nitro::nitroversioncheck {
 
@@ -51,6 +52,9 @@ namespace margelo::nitro::nitroversioncheck {
     public:
       // Methods
       virtual std::string getCountry() = 0;
+      virtual std::shared_ptr<Promise<std::string>> getStoreUrl() = 0;
+      virtual std::shared_ptr<Promise<std::string>> getLatestVersion() = 0;
+      virtual std::shared_ptr<Promise<bool>> needsUpdate() = 0;
 
     protected:
       // Hybrid Setup

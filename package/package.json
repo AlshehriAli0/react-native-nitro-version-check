@@ -58,7 +58,10 @@
     "expo-version",
     "nitro-modules",
     "nitro-modules-version-check",
-    "nitro-modules-version"
+    "nitro-modules-version",
+    "app store version",
+    "play store version",
+    "market version"
   ],
   "repository": {
     "type": "git",

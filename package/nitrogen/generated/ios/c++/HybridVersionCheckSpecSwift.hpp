@@ -15,6 +15,7 @@ namespace NitroVersionCheck { class HybridVersionCheckSpec_cxx; }
 
 
 #include <string>
+#include <NitroModules/Promise.hpp>
 
 #include "NitroVersionCheck-Swift-Cxx-Umbrella.hpp"
 
@@ -79,6 +80,30 @@ namespace margelo::nitro::nitroversioncheck {
     // Methods
     inline std::string getCountry() override {
       auto __result = _swiftPart.getCountry();
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::string>> getStoreUrl() override {
+      auto __result = _swiftPart.getStoreUrl();
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::string>> getLatestVersion() override {
+      auto __result = _swiftPart.getLatestVersion();
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<bool>> needsUpdate() override {
+      auto __result = _swiftPart.needsUpdate();
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

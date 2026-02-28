@@ -58,6 +58,9 @@ namespace margelo::nitro::nitroversioncheck {
   public:
     // Methods
     std::string getCountry() override;
+    std::shared_ptr<Promise<std::string>> getStoreUrl() override;
+    std::shared_ptr<Promise<std::string>> getLatestVersion() override;
+    std::shared_ptr<Promise<bool>> needsUpdate() override;
 
   private:
     friend HybridBase;

@@ -10,6 +10,7 @@ package com.margelo.nitro.nitroversioncheck
 import androidx.annotation.Keep
 import com.facebook.jni.HybridData
 import com.facebook.proguard.annotations.DoNotStrip
+import com.margelo.nitro.core.Promise
 import com.margelo.nitro.core.HybridObject
 
 /**
@@ -58,6 +59,18 @@ abstract class HybridVersionCheckSpec: HybridObject() {
   @DoNotStrip
   @Keep
   abstract fun getCountry(): String
+  
+  @DoNotStrip
+  @Keep
+  abstract fun getStoreUrl(): Promise<String>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun getLatestVersion(): Promise<String>
+  
+  @DoNotStrip
+  @Keep
+  abstract fun needsUpdate(): Promise<Boolean>
 
   private external fun initHybrid(): HybridData
 

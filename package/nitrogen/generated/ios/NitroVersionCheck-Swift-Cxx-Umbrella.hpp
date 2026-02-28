@@ -13,6 +13,7 @@ namespace margelo::nitro::nitroversioncheck { class HybridVersionCheckSpec; }
 
 // Include C++ defined types
 #include "HybridVersionCheckSpec.hpp"
+#include <NitroModules/Promise.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>
 #include <memory>
