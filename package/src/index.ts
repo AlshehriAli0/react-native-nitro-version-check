@@ -1,4 +1,6 @@
 import { NitroModules } from "react-native-nitro-modules";
+import type { UpdateLevel } from "./semver";
+import { compareVersions, isNewerVersion } from "./semver";
 import type { VersionCheck as VersionCheckType } from "./specs/Version.nitro";
 
 const VersionCheck = NitroModules.createHybridObject<VersionCheckType>("VersionCheck");
@@ -78,7 +80,12 @@ export const getLatestVersion = () => VersionCheck.getLatestVersion();
 /**
  * Checks whether an app update is available.
  *
- * Compares the current version against the latest store version.
+ * Uses semantic version comparison. By default checks for any version
+ * increase, but you can filter by granularity:
+ *
+ * - `"major"` — only returns `true` for major bumps (1.x → 2.x)
+ * - `"minor"` — returns `true` for major or minor bumps
+ * - `"patch"` — returns `true` for any version increase (default)
  *
  * @example
  * ```ts
@@ -86,8 +93,15 @@ export const getLatestVersion = () => VersionCheck.getLatestVersion();
  *   const url = await getStoreUrl();
  *   Linking.openURL(url);
  * }
+ *
+ * // Only prompt for major updates
+ * const majorUpdate = await needsUpdate({ level: "major" });
  * ```
  */
-export const needsUpdate = () => VersionCheck.needsUpdate();
+export const needsUpdate = async (options?: { level?: UpdateLevel }): Promise<boolean> => {
+  const latest = await VersionCheck.getLatestVersion();
+  return isNewerVersion(VersionCheck.version, latest, options?.level ?? "patch");
+};
 
-export { VersionCheck };
+export { compareVersions, VersionCheck };
+export type { UpdateLevel };

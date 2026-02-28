@@ -5,21 +5,33 @@ import { getLatestVersion, getStoreUrl, needsUpdate, VersionCheck } from "react-
 
 export default function App() {
   const [loading, setLoading] = useState(true);
-  const [updateAvailable, setUpdateAvailable] = useState(false);
   const [storeUrl, setStoreUrl] = useState<string | null>(null);
   const [latestVersion, setLatestVersion] = useState<string | null>(null);
+  const [updateLevel, setUpdateLevel] = useState<"major" | "minor" | "patch" | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch all async data on mount
   useEffect(() => {
     const fetchAll = async () => {
       try {
-        const [update, url, latest] = await Promise.all([needsUpdate(), getStoreUrl(), getLatestVersion()]);
-        setUpdateAvailable(update);
+        const [url, latest] = await Promise.all([getStoreUrl(), getLatestVersion()]);
         setStoreUrl(url);
         setLatestVersion(latest);
+
+        // Check each level to determine the most specific update type
+        const isMajor = await needsUpdate({ level: "major" });
+        if (isMajor) {
+          setUpdateLevel("major");
+        } else {
+          const isMinor = await needsUpdate({ level: "minor" });
+          if (isMinor) {
+            setUpdateLevel("minor");
+          } else {
+            const isPatch = await needsUpdate({ level: "patch" });
+            if (isPatch) setUpdateLevel("patch");
+          }
+        }
       } catch {
-        setError("App not found in store"); // this is not an error, it's just a fallback
+        setError("App not found in store");
       }
       setLoading(false);
     };
@@ -46,13 +58,16 @@ export default function App() {
           <Text style={styles.label}>Latest: {latestVersion}</Text>
           <Text style={styles.label}>Store URL: {storeUrl}</Text>
 
-          {updateAvailable && storeUrl && (
+          {updateLevel && storeUrl && (
             <TouchableOpacity onPress={() => Linking.openURL(storeUrl)}>
-              <Text style={styles.updateText}>Update available — tap to open store</Text>
+              <Text style={styles.updateText}>
+                {updateLevel === "major" ? "Major" : updateLevel === "minor" ? "Minor" : "Patch"} update available — tap
+                to open store
+              </Text>
             </TouchableOpacity>
           )}
 
-          {!updateAvailable && <Text style={styles.upToDate}>App is up to date</Text>}
+          {!updateLevel && <Text style={styles.upToDate}>App is up to date</Text>}
         </>
       )}
 
