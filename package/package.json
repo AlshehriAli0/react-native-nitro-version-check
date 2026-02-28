@@ -1,0 +1,75 @@
+{
+  "name": "react-native-nitro-version-check",
+  "version": "0.0.1",
+  "description": "react-native-nitro-version-check",
+  "main": "lib/index",
+  "module": "lib/index",
+  "types": "lib/index.d.ts",
+  "react-native": "src/index",
+  "source": "src/index",
+  "files": [
+    "src",
+    "react-native.config.js",
+    "lib",
+    "nitrogen",
+    "android/build.gradle",
+    "android/gradle.properties",
+    "android/fix-prefab.gradle",
+    "android/CMakeLists.txt",
+    "android/src",
+    "cpp",
+    "ios/**/*.h",
+    "ios/**/*.m",
+    "ios/**/*.mm",
+    "ios/**/*.cpp",
+    "ios/**/*.swift",
+    "app.plugin.js",
+    "nitro.json",
+    "*.podspec",
+    "README.md"
+  ],
+  "scripts": {
+    "prepack": "cp ../README.md ./README.md",
+    "postpack": "rm ./README.md",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "specs": "tsc --noEmit false && nitrogen --logLevel=\"debug\"",
+    "start": "cd ../example && bun start",
+    "pods": "cd ../example && cd ios && bundle exec pod install",
+    "bootstrap": "cd .. && bun install && cd example && bun pods",
+    "clean": "rm -rf android/build node_modules/**/android/build lib",
+    "clean:ios": "cd ../example && rm -rf ios/build ios/Pods ios/DerivedData",
+    "clean:android": "cd ../example && rm -rf android/build android/app/build android/.gradle",
+    "clean:all": "bun clean && bun clean:ios && bun clean:android && rm -rf node_modules ../example/node_modules"
+  },
+  "keywords": ["react-native", "nitro"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlshehriAli0/react-native-nitro-version-check.git"
+  },
+  "author": "AlshehriAli0 (https://github.com/AlshehriAli0)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlshehriAli0/react-native-nitro-version-check/issues"
+  },
+  "homepage": "https://github.com/AlshehriAli0/react-native-nitro-version-check#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.03",
+    "nitrogen": "*",
+    "react": "19.2.0",
+    "react-native": "0.83.0",
+    "react-native-nitro-modules": "*",
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-nitro-modules": "*"
+  }
+}
