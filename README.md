@@ -35,7 +35,7 @@ Benchmarked against [`react-native-version-check`](https://github.com/kimxogus/r
 ## Installation
 
 ```sh
-npm i react-native-nitro-version-check react-native-nitro-modules
+bun add react-native-nitro-version-check react-native-nitro-modules
 ```
 
 For Expo projects, run prebuild:
