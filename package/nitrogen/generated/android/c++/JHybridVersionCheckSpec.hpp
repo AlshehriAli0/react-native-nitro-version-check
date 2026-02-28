@@ -51,11 +51,13 @@ namespace margelo::nitro::nitroversioncheck {
 
   public:
     // Properties
-    
+    std::string getVersion() override;
+    std::string getBuildNumber() override;
+    std::string getPackageName() override;
 
   public:
     // Methods
-    std::string getVersion() override;
+    std::string getCountry() override;
 
   private:
     friend HybridBase;

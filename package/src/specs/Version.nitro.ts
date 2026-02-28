@@ -5,5 +5,8 @@ export interface VersionCheck
     ios: "swift";
     android: "kotlin";
   }> {
-  getVersion(): string;
+  readonly version: string;
+  readonly buildNumber: string;
+  readonly packageName: string;
+  getCountry(): string;
 }

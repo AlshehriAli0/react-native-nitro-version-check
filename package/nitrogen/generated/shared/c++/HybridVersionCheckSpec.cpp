@@ -14,7 +14,10 @@ namespace margelo::nitro::nitroversioncheck {
     HybridObject::loadHybridMethods();
     // load custom methods/properties
     registerHybrids(this, [](Prototype& prototype) {
-      prototype.registerHybridMethod("getVersion", &HybridVersionCheckSpec::getVersion);
+      prototype.registerHybridGetter("version", &HybridVersionCheckSpec::getVersion);
+      prototype.registerHybridGetter("buildNumber", &HybridVersionCheckSpec::getBuildNumber);
+      prototype.registerHybridGetter("packageName", &HybridVersionCheckSpec::getPackageName);
+      prototype.registerHybridMethod("getCountry", &HybridVersionCheckSpec::getCountry);
     });
   }
 

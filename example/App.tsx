@@ -1,13 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { getVersion } from "react-native-nitro-version-check";
+import VersionCheck from "react-native-nitro-version-check";
 
 export default function App() {
-  const version = getVersion();
-
   return (
     <View style={styles.container}>
-      <Text>Version: {version}</Text>
+      <Text>Version: {VersionCheck.version}</Text>
+      <Text>Build: {VersionCheck.buildNumber}</Text>
+      <Text>Package: {VersionCheck.packageName}</Text>
+      <Text>Country: {VersionCheck.getCountry()}</Text>
       <StatusBar style="auto" />
     </View>
   );

@@ -10,10 +10,12 @@ import NitroModules
 /// See ``HybridVersionCheckSpec``
 public protocol HybridVersionCheckSpec_protocol: HybridObject {
   // Properties
-  
+  var version: String { get }
+  var buildNumber: String { get }
+  var packageName: String { get }
 
   // Methods
-  func getVersion() throws -> String
+  func getCountry() throws -> String
 }
 
 public extension HybridVersionCheckSpec_protocol {

@@ -121,13 +121,32 @@ open class HybridVersionCheckSpec_cxx {
   }
 
   // Properties
+  public final var version: std.string {
+    @inline(__always)
+    get {
+      return std.string(self.__implementation.version)
+    }
+  }
   
+  public final var buildNumber: std.string {
+    @inline(__always)
+    get {
+      return std.string(self.__implementation.buildNumber)
+    }
+  }
+  
+  public final var packageName: std.string {
+    @inline(__always)
+    get {
+      return std.string(self.__implementation.packageName)
+    }
+  }
 
   // Methods
   @inline(__always)
-  public final func getVersion() -> bridge.Result_std__string_ {
+  public final func getCountry() -> bridge.Result_std__string_ {
     do {
-      let __result = try self.__implementation.getVersion()
+      let __result = try self.__implementation.getCountry()
       let __resultCpp = std.string(__result)
       return bridge.create_Result_std__string_(__resultCpp)
     } catch (let __error) {

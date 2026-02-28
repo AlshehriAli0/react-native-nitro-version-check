@@ -3,5 +3,9 @@ import type { VersionCheck as VersionCheckType } from "./specs/Version.nitro";
 
 const VersionCheck = NitroModules.createHybridObject<VersionCheckType>("VersionCheck");
 
-export const getVersion = VersionCheck.getVersion.bind(VersionCheck);
+export const version = VersionCheck.version;
+export const buildNumber = VersionCheck.buildNumber;
+export const packageName = VersionCheck.packageName;
+export const getCountry = VersionCheck.getCountry.bind(VersionCheck);
+
 export default VersionCheck;

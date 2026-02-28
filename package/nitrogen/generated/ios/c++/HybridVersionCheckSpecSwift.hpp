@@ -62,12 +62,23 @@ namespace margelo::nitro::nitroversioncheck {
 
   public:
     // Properties
-    
+    inline std::string getVersion() noexcept override {
+      auto __result = _swiftPart.getVersion();
+      return __result;
+    }
+    inline std::string getBuildNumber() noexcept override {
+      auto __result = _swiftPart.getBuildNumber();
+      return __result;
+    }
+    inline std::string getPackageName() noexcept override {
+      auto __result = _swiftPart.getPackageName();
+      return __result;
+    }
 
   public:
     // Methods
-    inline std::string getVersion() override {
-      auto __result = _swiftPart.getVersion();
+    inline std::string getCountry() override {
+      auto __result = _swiftPart.getCountry();
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

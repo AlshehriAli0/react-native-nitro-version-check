@@ -44,11 +44,13 @@ namespace margelo::nitro::nitroversioncheck {
 
     public:
       // Properties
-      
+      virtual std::string getVersion() = 0;
+      virtual std::string getBuildNumber() = 0;
+      virtual std::string getPackageName() = 0;
 
     public:
       // Methods
-      virtual std::string getVersion() = 0;
+      virtual std::string getCountry() = 0;
 
     protected:
       // Hybrid Setup

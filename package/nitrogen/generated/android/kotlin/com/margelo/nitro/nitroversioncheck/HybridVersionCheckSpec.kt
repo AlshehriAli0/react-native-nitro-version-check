@@ -42,12 +42,22 @@ abstract class HybridVersionCheckSpec: HybridObject() {
   }
 
   // Properties
+  @get:DoNotStrip
+  @get:Keep
+  abstract val version: String
   
+  @get:DoNotStrip
+  @get:Keep
+  abstract val buildNumber: String
+  
+  @get:DoNotStrip
+  @get:Keep
+  abstract val packageName: String
 
   // Methods
   @DoNotStrip
   @Keep
-  abstract fun getVersion(): String
+  abstract fun getCountry(): String
 
   private external fun initHybrid(): HybridData
 

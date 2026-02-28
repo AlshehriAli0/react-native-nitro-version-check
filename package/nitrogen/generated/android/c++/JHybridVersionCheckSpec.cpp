@@ -47,11 +47,25 @@ namespace margelo::nitro::nitroversioncheck {
   }
 
   // Properties
-  
-
-  // Methods
   std::string JHybridVersionCheckSpec::getVersion() {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getVersion");
+    auto __result = method(_javaPart);
+    return __result->toStdString();
+  }
+  std::string JHybridVersionCheckSpec::getBuildNumber() {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getBuildNumber");
+    auto __result = method(_javaPart);
+    return __result->toStdString();
+  }
+  std::string JHybridVersionCheckSpec::getPackageName() {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getPackageName");
+    auto __result = method(_javaPart);
+    return __result->toStdString();
+  }
+
+  // Methods
+  std::string JHybridVersionCheckSpec::getCountry() {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getCountry");
     auto __result = method(_javaPart);
     return __result->toStdString();
   }
