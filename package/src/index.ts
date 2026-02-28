@@ -5,62 +5,11 @@ import type { VersionCheck as VersionCheckType } from "./specs/Version.nitro";
 
 const HybridVersionCheck = NitroModules.createHybridObject<VersionCheckType>("VersionCheck");
 
-/**
- * The current app version.
- *
- * @platform ios - `CFBundleShortVersionString`
- * @platform android - `versionName`
- *
- * @example
- * ```ts
- * version // "1.2.0"
- * ```
- */
-export const version = HybridVersionCheck.version;
-
-/**
- * The current app build number.
- *
- * @platform ios - `CFBundleVersion`
- * @platform android - `versionCode`
- *
- * @example
- * ```ts
- * buildNumber // "42"
- * ```
- */
-export const buildNumber = HybridVersionCheck.buildNumber;
-
-/**
- * The app's unique identifier.
- *
- * @platform ios - Bundle ID (e.g. `com.example.app`)
- * @platform android - Application ID (e.g. `com.example.app`)
- *
- * @example
- * ```ts
- * packageName // "com.example.app"
- * ```
- */
-export const packageName = HybridVersionCheck.packageName;
-
-/**
- * Where the app was installed from, or `undefined` in dev/debug/sideloaded builds.
- *
- * @platform ios - `"testflight"` | `"appstore"` | `undefined`
- * @platform android - `"playstore"` | `undefined` — detects Play Store, Amazon Appstore, Samsung Galaxy Store, Huawei AppGallery, and other store installers
- *
- * @example
- * ```ts
- * if (installSource === "testflight") {
- *   // TestFlight build
- * }
- * if (!installSource) {
- *   // dev / sideloaded build
- * }
- * ```
- */
-export const installSource = HybridVersionCheck.installSource;
+// Cached at module init — plain JS values, no JSI overhead on repeated access.
+const version = HybridVersionCheck.version;
+const buildNumber = HybridVersionCheck.buildNumber;
+const packageName = HybridVersionCheck.packageName;
+const installSource = HybridVersionCheck.installSource;
 
 /**
  * Returns the device's current 2-letter ISO country code.
@@ -122,20 +71,113 @@ export const needsUpdate = async (options?: { level?: UpdateLevel }): Promise<bo
 };
 
 /**
- * Convenience object with cached static properties.
+ * All version-check APIs in one object.
  *
- * Properties like `version`, `buildNumber`, `packageName`, and `installSource`
- * are read once from native at module init and cached as plain JS values —
- * no JSI overhead on repeated access. Methods still call through JSI.
+ * @example
+ * ```ts
+ * VersionCheck.version      // "1.2.0"
+ * VersionCheck.buildNumber  // "42"
+ * VersionCheck.packageName  // "com.example.app"
+ * VersionCheck.getCountry() // "US"
+ *
+ * const url = await VersionCheck.getStoreUrl();
+ * ```
  */
 export const VersionCheck = {
+  /**
+   * The current app version string.
+   *
+   * Read from `CFBundleShortVersionString` on iOS and `versionName` on Android.
+   * Cached at module init, so repeated reads have zero native overhead.
+   *
+   * @example
+   * ```ts
+   * VersionCheck.version // "1.2.0"
+   * ```
+   */
   version,
+  /**
+   * The current build number.
+   *
+   * Read from `CFBundleVersion` on iOS and `versionCode` on Android.
+   * Cached at module init.
+   *
+   * @example
+   * ```ts
+   * VersionCheck.buildNumber // "42"
+   * ```
+   */
   buildNumber,
+  /**
+   * The app's unique identifier.
+   *
+   * This is the Bundle ID on iOS and the Application ID on Android.
+   * Cached at module init.
+   *
+   * @example
+   * ```ts
+   * VersionCheck.packageName // "com.example.app"
+   * ```
+   */
   packageName,
+  /**
+   * Where the app was installed from, or `undefined` for dev/sideloaded builds.
+   *
+   * - iOS: `"appstore"` | `"testflight"` | `undefined`
+   * - Android: `"playstore"` | `undefined`
+   *
+   * @example
+   * ```ts
+   * if (VersionCheck.installSource === "testflight") {
+   *   // running a TestFlight build
+   * }
+   * ```
+   */
   installSource,
+  /**
+   * Returns the device's current 2-letter ISO country code.
+   *
+   * This is a synchronous Nitro call, no `await` needed.
+   *
+   * @example
+   * ```ts
+   * VersionCheck.getCountry() // "US"
+   * ```
+   */
   getCountry,
+  /**
+   * Returns the App Store (iOS) or Play Store (Android) URL for this app.
+   *
+   * @example
+   * ```ts
+   * const url = await VersionCheck.getStoreUrl();
+   * Linking.openURL(url);
+   * ```
+   */
   getStoreUrl,
+  /**
+   * Fetches the latest version of this app available in the store.
+   *
+   * Queries the iTunes API on iOS and the Play Store on Android.
+   *
+   * @example
+   * ```ts
+   * const latest = await VersionCheck.getLatestVersion(); // "1.3.0"
+   * ```
+   */
   getLatestVersion,
+  /**
+   * Checks whether an app update is available by comparing the current
+   * version against the latest store version.
+   *
+   * @example
+   * ```ts
+   * if (await VersionCheck.needsUpdate()) {
+   *   const url = await VersionCheck.getStoreUrl();
+   *   Linking.openURL(url);
+   * }
+   * ```
+   */
   needsUpdate: () => HybridVersionCheck.needsUpdate(),
 } as const;
 
