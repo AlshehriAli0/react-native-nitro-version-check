@@ -54,6 +54,10 @@ abstract class HybridVersionCheckSpec: HybridObject() {
   @get:DoNotStrip
   @get:Keep
   abstract val packageName: String
+  
+  @get:DoNotStrip
+  @get:Keep
+  abstract val installSource: String?
 
   // Methods
   @DoNotStrip

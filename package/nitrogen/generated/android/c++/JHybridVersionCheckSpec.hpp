@@ -54,6 +54,7 @@ namespace margelo::nitro::nitroversioncheck {
     std::string getVersion() override;
     std::string getBuildNumber() override;
     std::string getPackageName() override;
+    std::optional<std::string> getInstallSource() override;
 
   public:
     // Methods

@@ -45,6 +45,24 @@ export const buildNumber = VersionCheck.buildNumber;
 export const packageName = VersionCheck.packageName;
 
 /**
+ * Where the app was installed from, or `undefined` in dev/debug/sideloaded builds.
+ *
+ * @platform ios - `"testflight"` | `"appstore"` | `undefined`
+ * @platform android - `"playstore"` | `undefined` — detects Play Store, Amazon Appstore, Samsung Galaxy Store, Huawei AppGallery, and other store installers
+ *
+ * @example
+ * ```ts
+ * if (installSource === "testflight") {
+ *   // TestFlight build
+ * }
+ * if (!installSource) {
+ *   // dev / sideloaded build
+ * }
+ * ```
+ */
+export const installSource = VersionCheck.installSource;
+
+/**
  * Returns the device's current 2-letter ISO country code.
  *
  * @example

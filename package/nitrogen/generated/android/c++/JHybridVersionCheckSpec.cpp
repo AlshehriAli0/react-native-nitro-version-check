@@ -10,6 +10,7 @@
 
 
 #include <string>
+#include <optional>
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/JPromise.hpp>
 
@@ -63,6 +64,11 @@ namespace margelo::nitro::nitroversioncheck {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getPackageName");
     auto __result = method(_javaPart);
     return __result->toStdString();
+  }
+  std::optional<std::string> JHybridVersionCheckSpec::getInstallSource() {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getInstallSource");
+    auto __result = method(_javaPart);
+    return __result != nullptr ? std::make_optional(__result->toStdString()) : std::nullopt;
   }
 
   // Methods

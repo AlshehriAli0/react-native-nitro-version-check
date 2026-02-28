@@ -15,6 +15,7 @@ namespace NitroVersionCheck { class HybridVersionCheckSpec_cxx; }
 
 
 #include <string>
+#include <optional>
 #include <NitroModules/Promise.hpp>
 
 #include "NitroVersionCheck-Swift-Cxx-Umbrella.hpp"
@@ -73,6 +74,10 @@ namespace margelo::nitro::nitroversioncheck {
     }
     inline std::string getPackageName() noexcept override {
       auto __result = _swiftPart.getPackageName();
+      return __result;
+    }
+    inline std::optional<std::string> getInstallSource() noexcept override {
+      auto __result = _swiftPart.getInstallSource();
       return __result;
     }
 

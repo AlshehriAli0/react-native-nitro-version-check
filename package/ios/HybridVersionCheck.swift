@@ -12,6 +12,16 @@ class HybridVersionCheck: HybridVersionCheckSpec {
     var version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
     var buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "unknown"
     var packageName = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String ?? "unknown"
+    var installSource: String? = {
+        guard let receiptURL = Bundle.main.appStoreReceiptURL,
+              FileManager.default.fileExists(atPath: receiptURL.path) else {
+            return nil
+        }
+        if receiptURL.lastPathComponent == "sandboxReceipt" {
+            return "testflight"
+        }
+        return "appstore"
+    }()
 
     func getCountry() throws -> String {
         if #available(iOS 16, *) {

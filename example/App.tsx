@@ -45,6 +45,7 @@ export default function App() {
       <Text style={styles.label}>Build: {VersionCheck.buildNumber}</Text>
       <Text style={styles.label}>Package: {VersionCheck.packageName}</Text>
       <Text style={styles.label}>Country: {VersionCheck.getCountry()}</Text>
+      <Text style={styles.label}>Install: {VersionCheck.installSource ?? "Dev Build"}</Text>
 
       <View style={styles.divider} />
 

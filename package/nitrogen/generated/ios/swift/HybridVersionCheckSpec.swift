@@ -13,6 +13,7 @@ public protocol HybridVersionCheckSpec_protocol: HybridObject {
   var version: String { get }
   var buildNumber: String { get }
   var packageName: String { get }
+  var installSource: String? { get }
 
   // Methods
   func getCountry() throws -> String

@@ -16,6 +16,7 @@
 
 
 #include <string>
+#include <optional>
 #include <NitroModules/Promise.hpp>
 
 namespace margelo::nitro::nitroversioncheck {
@@ -48,6 +49,7 @@ namespace margelo::nitro::nitroversioncheck {
       virtual std::string getVersion() = 0;
       virtual std::string getBuildNumber() = 0;
       virtual std::string getPackageName() = 0;
+      virtual std::optional<std::string> getInstallSource() = 0;
 
     public:
       // Methods

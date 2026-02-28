@@ -8,6 +8,7 @@ export interface VersionCheck
   readonly version: string;
   readonly buildNumber: string;
   readonly packageName: string;
+  readonly installSource: string | undefined;
   getCountry(): string;
   getStoreUrl(): Promise<string>;
   getLatestVersion(): Promise<string>;

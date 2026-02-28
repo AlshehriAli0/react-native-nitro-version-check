@@ -22,6 +22,15 @@ class HybridVersionCheck : HybridVersionCheckSpec() {
     }
 
     public override val packageName = packageInfo?.packageName ?: "unknown"
+    public override val installSource: String? = run {
+        val installer = if (android.os.Build.VERSION.SDK_INT >= 30) {
+            context?.packageManager?.getInstallSourceInfo(context.packageName)?.installingPackageName
+        } else {
+            @Suppress("DEPRECATION")
+            context?.packageManager?.getInstallerPackageName(context.packageName)
+        }
+        if (installer != null) "playstore" else null
+    }
 
     override fun getCountry(): String {
         return java.util.Locale.getDefault().country ?: "unknown"

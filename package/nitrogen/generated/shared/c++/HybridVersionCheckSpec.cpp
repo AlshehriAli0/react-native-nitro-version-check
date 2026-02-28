@@ -17,6 +17,7 @@ namespace margelo::nitro::nitroversioncheck {
       prototype.registerHybridGetter("version", &HybridVersionCheckSpec::getVersion);
       prototype.registerHybridGetter("buildNumber", &HybridVersionCheckSpec::getBuildNumber);
       prototype.registerHybridGetter("packageName", &HybridVersionCheckSpec::getPackageName);
+      prototype.registerHybridGetter("installSource", &HybridVersionCheckSpec::getInstallSource);
       prototype.registerHybridMethod("getCountry", &HybridVersionCheckSpec::getCountry);
       prototype.registerHybridMethod("getStoreUrl", &HybridVersionCheckSpec::getStoreUrl);
       prototype.registerHybridMethod("getLatestVersion", &HybridVersionCheckSpec::getLatestVersion);
