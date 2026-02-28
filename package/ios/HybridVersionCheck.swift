@@ -1,24 +1,33 @@
 import Foundation
 import NitroModules
 
-
 class HybridVersionCheck: HybridVersionCheckSpec {
+    private static let session: URLSession = {
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 15
+        config.timeoutIntervalForResource = 30
+        return URLSession(configuration: config)
+    }()
+
     var version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
     var buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "unknown"
     var packageName = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String ?? "unknown"
-    
+
     func getCountry() throws -> String {
-        Locale.current.regionCode ?? "unknown"
+        if #available(iOS 16, *) {
+            return Locale.current.region?.identifier ?? "unknown"
+        }
+        return Locale.current.regionCode ?? "unknown"
     }
 
     func getStoreUrl() throws -> Promise<String> {
         return Promise.async {
             let bundleId = Bundle.main.bundleIdentifier ?? ""
             let url = URL(string: "https://itunes.apple.com/lookup?bundleId=\(bundleId)")!
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-            let results = json?["results"] as? [[String: Any]]
-            guard let trackViewUrl = results?.first?["trackViewUrl"] as? String else {
+            let (data, _) = try await HybridVersionCheck.session.data(from: url)
+            guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let results = json["results"] as? [[String: Any]],
+                  let trackViewUrl = results.first?["trackViewUrl"] as? String else {
                 throw NSError(domain: "VersionCheck", code: 1, userInfo: [NSLocalizedDescriptionKey: "App not found on App Store"])
             }
             return trackViewUrl
@@ -29,11 +38,10 @@ class HybridVersionCheck: HybridVersionCheckSpec {
         return Promise.async {
             let bundleId = Bundle.main.bundleIdentifier ?? ""
             let url = URL(string: "https://itunes.apple.com/lookup?bundleId=\(bundleId)")!
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-            let results = json?["results"] as? [[String: Any]]
-            
-            guard let latestVersion = results?.first?["version"] as? String else {
+            let (data, _) = try await HybridVersionCheck.session.data(from: url)
+            guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let results = json["results"] as? [[String: Any]],
+                  let latestVersion = results.first?["version"] as? String else {
                 throw NSError(domain: "VersionCheck", code: 2, userInfo: [NSLocalizedDescriptionKey: "App not found on App Store"])
             }
             return latestVersion

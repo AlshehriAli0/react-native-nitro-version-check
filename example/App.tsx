@@ -19,7 +19,7 @@ export default function App() {
         setStoreUrl(url);
         setLatestVersion(latest);
       } catch {
-        setError("App not found in store");
+        setError("App not found in store"); // this is not an error, it's just a fallback
       }
       setLoading(false);
     };

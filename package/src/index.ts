@@ -50,7 +50,7 @@ export const packageName = VersionCheck.packageName;
  * getCountry() // "US"
  * ```
  */
-export const getCountry = VersionCheck.getCountry;
+export const getCountry = () => VersionCheck.getCountry();
 
 /**
  * Returns the store URL for this app.
@@ -63,7 +63,7 @@ export const getCountry = VersionCheck.getCountry;
  * Linking.openURL(url);
  * ```
  */
-export const getStoreUrl = VersionCheck.getStoreUrl;
+export const getStoreUrl = () => VersionCheck.getStoreUrl();
 
 /**
  * Fetches the latest version of this app available in the store.
@@ -73,7 +73,7 @@ export const getStoreUrl = VersionCheck.getStoreUrl;
  * const latest = await getLatestVersion(); // "1.3.0"
  * ```
  */
-export const getLatestVersion = VersionCheck.getLatestVersion;
+export const getLatestVersion = () => VersionCheck.getLatestVersion();
 
 /**
  * Checks whether an app update is available.
@@ -88,6 +88,6 @@ export const getLatestVersion = VersionCheck.getLatestVersion;
  * }
  * ```
  */
-export const needsUpdate = VersionCheck.needsUpdate;
+export const needsUpdate = () => VersionCheck.needsUpdate();
 
 export { VersionCheck };
