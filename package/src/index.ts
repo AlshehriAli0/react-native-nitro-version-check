@@ -3,7 +3,7 @@ import type { UpdateLevel } from "./semver";
 import { compareVersions, isNewerVersion } from "./semver";
 import type { VersionCheck as VersionCheckType } from "./specs/Version.nitro";
 
-const VersionCheck = NitroModules.createHybridObject<VersionCheckType>("VersionCheck");
+const HybridVersionCheck = NitroModules.createHybridObject<VersionCheckType>("VersionCheck");
 
 /**
  * The current app version.
@@ -16,7 +16,7 @@ const VersionCheck = NitroModules.createHybridObject<VersionCheckType>("VersionC
  * version // "1.2.0"
  * ```
  */
-export const version = VersionCheck.version;
+export const version = HybridVersionCheck.version;
 
 /**
  * The current app build number.
@@ -29,7 +29,7 @@ export const version = VersionCheck.version;
  * buildNumber // "42"
  * ```
  */
-export const buildNumber = VersionCheck.buildNumber;
+export const buildNumber = HybridVersionCheck.buildNumber;
 
 /**
  * The app's unique identifier.
@@ -42,7 +42,7 @@ export const buildNumber = VersionCheck.buildNumber;
  * packageName // "com.example.app"
  * ```
  */
-export const packageName = VersionCheck.packageName;
+export const packageName = HybridVersionCheck.packageName;
 
 /**
  * Where the app was installed from, or `undefined` in dev/debug/sideloaded builds.
@@ -60,7 +60,7 @@ export const packageName = VersionCheck.packageName;
  * }
  * ```
  */
-export const installSource = VersionCheck.installSource;
+export const installSource = HybridVersionCheck.installSource;
 
 /**
  * Returns the device's current 2-letter ISO country code.
@@ -70,7 +70,7 @@ export const installSource = VersionCheck.installSource;
  * getCountry() // "US"
  * ```
  */
-export const getCountry = () => VersionCheck.getCountry();
+export const getCountry = () => HybridVersionCheck.getCountry();
 
 /**
  * Returns the store URL for this app.
@@ -83,7 +83,7 @@ export const getCountry = () => VersionCheck.getCountry();
  * Linking.openURL(url);
  * ```
  */
-export const getStoreUrl = () => VersionCheck.getStoreUrl();
+export const getStoreUrl = () => HybridVersionCheck.getStoreUrl();
 
 /**
  * Fetches the latest version of this app available in the store.
@@ -93,7 +93,7 @@ export const getStoreUrl = () => VersionCheck.getStoreUrl();
  * const latest = await getLatestVersion(); // "1.3.0"
  * ```
  */
-export const getLatestVersion = () => VersionCheck.getLatestVersion();
+export const getLatestVersion = () => HybridVersionCheck.getLatestVersion();
 
 /**
  * Checks whether an app update is available.
@@ -117,9 +117,27 @@ export const getLatestVersion = () => VersionCheck.getLatestVersion();
  * ```
  */
 export const needsUpdate = async (options?: { level?: UpdateLevel }): Promise<boolean> => {
-  const latest = await VersionCheck.getLatestVersion();
-  return isNewerVersion(VersionCheck.version, latest, options?.level ?? "patch");
+  const latest = await HybridVersionCheck.getLatestVersion();
+  return isNewerVersion(version, latest, options?.level ?? "patch");
 };
 
-export { compareVersions, VersionCheck };
+/**
+ * Convenience object with cached static properties.
+ *
+ * Properties like `version`, `buildNumber`, `packageName`, and `installSource`
+ * are read once from native at module init and cached as plain JS values —
+ * no JSI overhead on repeated access. Methods still call through JSI.
+ */
+export const VersionCheck = {
+  version,
+  buildNumber,
+  packageName,
+  installSource,
+  getCountry,
+  getStoreUrl,
+  getLatestVersion,
+  needsUpdate: () => HybridVersionCheck.needsUpdate(),
+} as const;
+
+export { compareVersions };
 export type { UpdateLevel };

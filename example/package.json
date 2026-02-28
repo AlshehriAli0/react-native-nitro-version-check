@@ -14,7 +14,8 @@
     "react": "19.2.0",
     "react-native": "0.83.2",
     "react-native-nitro-modules": "0.33.9",
-    "react-native-nitro-version-check": "*"
+    "react-native-nitro-version-check": "*",
+    "react-native-version-check": "^3.5.0"
   },
   "devDependencies": {
     "@types/react": "~19.2.2",

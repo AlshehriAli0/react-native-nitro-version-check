@@ -2,8 +2,10 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { getLatestVersion, getStoreUrl, needsUpdate, VersionCheck } from "react-native-nitro-version-check";
+import BenchmarkScreen from "./BenchmarkScreen";
 
 export default function App() {
+  const [screen, setScreen] = useState<"main" | "benchmark">("main");
   const [loading, setLoading] = useState(true);
   const [storeUrl, setStoreUrl] = useState<string | null>(null);
   const [latestVersion, setLatestVersion] = useState<string | null>(null);
@@ -38,6 +40,10 @@ export default function App() {
     fetchAll();
   }, []);
 
+  if (screen === "benchmark") {
+    return <BenchmarkScreen onBack={() => setScreen("main")} />;
+  }
+
   return (
     <View style={styles.container}>
       {/* Sync properties — available immediately */}
@@ -71,6 +77,12 @@ export default function App() {
           {!updateLevel && <Text style={styles.upToDate}>App is up to date</Text>}
         </>
       )}
+
+      <View style={styles.divider} />
+
+      <TouchableOpacity style={styles.benchmarkButton} onPress={() => setScreen("benchmark")}>
+        <Text style={styles.benchmarkButtonText}>Run Benchmark</Text>
+      </TouchableOpacity>
 
       <StatusBar style="auto" />
     </View>
@@ -113,5 +125,17 @@ const styles = StyleSheet.create({
   errorText: {
     color: "#999",
     fontSize: 14,
+  },
+  benchmarkButton: {
+    backgroundColor: "#007AFF",
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 10,
+    marginTop: 8,
+  },
+  benchmarkButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
   },
 });
