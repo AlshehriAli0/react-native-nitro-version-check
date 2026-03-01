@@ -31,4 +31,3 @@ bun run android  # Android
 | `bun start` | Start the Expo dev server |
 | `bun run ios` | Build and run on iOS simulator |
 | `bun run android` | Build and run on Android emulator |
-| `bun run web` | Start the web version |
