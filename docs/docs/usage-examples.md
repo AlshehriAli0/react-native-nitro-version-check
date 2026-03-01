@@ -123,3 +123,31 @@ function useUpdateCheck() {
   return { updateAvailable, latestVersion }
 }
 ```
+
+## Use with TanStack Query
+
+If you're using [TanStack Query (React Query)](https://tanstack.com/query) for modern fetching patterns:
+
+```ts
+import { useQuery } from '@tanstack/react-query'
+import { needsUpdate } from 'react-native-nitro-version-check'
+
+export const useNeedsUpdate = () => {
+  return useQuery({
+    queryKey: ['needs-update'],
+    queryFn: needsUpdate,
+  })
+}
+```
+
+Then use it in your component:
+
+```tsx
+function UpdateBanner() {
+  const { data: shouldUpdate, isLoading } = useNeedsUpdate()
+
+  if (isLoading || !shouldUpdate) return null
+
+  return <Text>A new version is available!</Text>
+}
+```

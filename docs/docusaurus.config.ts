@@ -61,12 +61,40 @@ const config: Config = {
         content: "website",
       },
       {
+        property: "og:title",
+        content: "Nitro Version Check",
+      },
+      {
         property: "og:description",
         content: "A fast, modern version-checking library for React Native, powered by Nitro Modules.",
       },
       {
         property: "og:image",
-        content: "/img/social-cards/og-card.png",
+        content: "https://alshehriali0.github.io/react-native-nitro-version-check/img/social-cards/og-card.png",
+      },
+      {
+        property: "og:image:width",
+        content: "1200",
+      },
+      {
+        property: "og:image:height",
+        content: "630",
+      },
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+      {
+        name: "twitter:title",
+        content: "Nitro Version Check",
+      },
+      {
+        name: "twitter:description",
+        content: "A fast, modern version-checking library for React Native, powered by Nitro Modules.",
+      },
+      {
+        name: "twitter:image",
+        content: "https://alshehriali0.github.io/react-native-nitro-version-check/img/social-cards/og-card.png",
       },
       {
         name: "keywords",
