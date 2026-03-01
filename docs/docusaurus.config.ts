@@ -62,8 +62,7 @@ const config: Config = {
       },
       {
         property: "og:description",
-        content:
-          "A fast, modern version-checking library for React Native, powered by Nitro Modules.",
+        content: "A fast, modern version-checking library for React Native, powered by Nitro Modules.",
       },
       {
         property: "og:image",
