@@ -63,3 +63,7 @@ lib/
 .eslintcache
 .cache
 *.tsbuildinfo
+
+# Docusaurus
+docs/.docusaurus/
+docs/build/

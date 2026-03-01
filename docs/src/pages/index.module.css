@@ -1,0 +1,166 @@
+.heroBanner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 6rem 2rem;
+  background-color: #92c5e7;
+  background: color(display-p3 0.5707 0.772 0.9073);
+}
+
+[data-theme="dark"] .heroBanner {
+  background: #171e31;
+}
+
+/*
+ * 3D title effect — matches Nitro Modules logo style.
+ * Two layers:
+ *   ::before = shadow (offset down-left, thick stroke for solid extrusion)
+ *   h1       = white text with thin outline on top
+ */
+.heroTitleWrapper {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 6px;
+}
+
+/* Shadow layer — shifted down 5px and left 2px */
+.heroTitleWrapper::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 5px;
+  left: -2px;
+  width: 100%;
+  font-family: "Clash Display", sans-serif;
+  font-weight: 700;
+  font-size: 5rem;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: #455782;
+  -webkit-text-stroke: 5px #455782;
+  paint-order: stroke fill;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Foreground text — white with thin outline */
+.heroTitle {
+  position: relative;
+  font-family: "Clash Display", sans-serif;
+  font-weight: 700;
+  font-size: 5rem;
+  color: white;
+  -webkit-text-stroke: 4px #455782;
+  paint-order: stroke fill;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin: 0;
+  z-index: 1;
+}
+
+[data-theme="dark"] .heroTitleWrapper::before {
+  color: #3d4d6e;
+  -webkit-text-stroke: 5px #3d4d6e;
+}
+
+[data-theme="dark"] .heroTitle {
+  color: #ffffff;
+  -webkit-text-stroke: 4px #3d4d6e;
+}
+
+@media (max-width: 768px) {
+  .heroTitleWrapper::before {
+    font-size: 3rem;
+    top: 4px;
+    left: -1px;
+    -webkit-text-stroke: 4px #455782;
+  }
+
+  .heroTitle {
+    font-size: 3rem;
+    -webkit-text-stroke: 3px #455782;
+  }
+}
+
+.heroButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.3rem;
+  padding: 10px 45px;
+  border-radius: 8px;
+  color: white;
+  border: 2px solid #212a41;
+  background: var(--ifm-color-primary);
+  transition: transform 0.2s ease;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+[data-theme="dark"] .heroButton {
+  color: #e0e0e0;
+  border-color: #0000005e;
+}
+
+.heroButton::before,
+.heroButton::after {
+  content: "";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #212a41;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+  transform: translateZ(-1px);
+}
+
+[data-theme="dark"] .heroButton::before,
+[data-theme="dark"] .heroButton::after {
+  border-color: #0000005e;
+}
+
+.heroButton::before {
+  background-color: var(--ifm-color-primary-light);
+}
+
+.heroButton::after {
+  background-color: var(--ifm-color-primary-lighter);
+}
+
+.heroButton:hover {
+  transform: translate(-16px, -16px);
+  text-decoration: none;
+  color: white;
+}
+
+[data-theme="dark"] .heroButton:hover {
+  color: #e0e0e0;
+}
+
+.heroButton:hover::before {
+  transform: translate(8px, 8px) translateZ(-1px);
+}
+
+.heroButton:hover::after {
+  transform: translate(16px, 16px) translateZ(-2px);
+}
+
+.heroIcon {
+  width: 132px;
+  height: 132px;
+  margin-bottom: 0.5rem;
+}
+
+.heroContentContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  gap: 1rem;
+}

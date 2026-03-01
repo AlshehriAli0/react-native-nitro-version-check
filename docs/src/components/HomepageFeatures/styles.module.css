@@ -1,0 +1,38 @@
+.features {
+  display: flex;
+  align-items: center;
+  padding: 4rem 0;
+  width: 100%;
+  border-top: 2px solid var(--theme-border-color);
+  background-color: var(--ifm-background-color);
+}
+
+[data-theme="dark"] .features {
+  border-top: 2px solid var(--theme-border-color);
+  background-color: #111625;
+}
+
+.featureEmoji {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.description {
+  opacity: 0.8;
+}
+
+[data-theme="dark"] .description {
+  opacity: 0.9;
+  color: #a8c4d8;
+}
+
+.title {
+  font-family: "Clash Display", sans-serif;
+  font-weight: 500;
+  font-size: 1.8rem;
+}
+
+[data-theme="dark"] .title {
+  color: #e0e0e0;
+}

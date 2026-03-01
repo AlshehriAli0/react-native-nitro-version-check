@@ -1,12 +1,14 @@
 {
   "name": "react-native-nitro-version-check-monorepo",
   "private": true,
-  "workspaces": ["package", "example"],
+  "workspaces": ["package", "example", "docs"],
   "scripts": {
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
     "typecheck": "bun --filter '*' typecheck",
+    "docs:dev": "cd docs && bun start",
+    "docs:build": "cd docs && bun run build",
     "postinstall": "simple-git-hooks"
   },
   "simple-git-hooks": {
