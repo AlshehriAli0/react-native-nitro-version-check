@@ -4,7 +4,7 @@ import { themes as prismThemes } from "prism-react-renderer";
 
 const config: Config = {
   title: "Nitro Version Check",
-  tagline: "A fast, modern version-checking library for React Native, powered by Nitro Modules.",
+  tagline: "A lightweight, fast version-checking library for React Native, powered by Nitro Modules.",
   favicon: "/img/nos.png",
 
   url: "https://alshehriali0.github.io",
@@ -66,7 +66,7 @@ const config: Config = {
       },
       {
         property: "og:description",
-        content: "A fast, modern version-checking library for React Native, powered by Nitro Modules.",
+        content: "A lightweight, fast version-checking library for React Native, powered by Nitro Modules.",
       },
       {
         property: "og:image",
@@ -90,7 +90,7 @@ const config: Config = {
       },
       {
         name: "twitter:description",
-        content: "A fast, modern version-checking library for React Native, powered by Nitro Modules.",
+        content: "A lightweight, fast version-checking library for React Native, powered by Nitro Modules.",
       },
       {
         name: "twitter:image",
@@ -99,7 +99,7 @@ const config: Config = {
       {
         name: "keywords",
         content:
-          "react, native, nitro, version, check, react-native, nitro-modules, app-update, version-check, store-version",
+          "react, native, nitro, version, check, react-native, nitro-modules, app-update, version-check, store-version, lightweight",
       },
     ],
     tableOfContents: {

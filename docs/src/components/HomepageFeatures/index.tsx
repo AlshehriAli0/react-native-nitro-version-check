@@ -40,11 +40,16 @@ const FeatureList: FeatureItem[] = [
       </>
     ),
   },
+  {
+    title: "Lightweight",
+    emoji: "\uD83D\uDCE6",
+    description: <>Minimal footprint with no unnecessary dependencies. Pure Swift on iOS and Kotlin on Android.</>,
+  },
 ];
 
 function Feature({ title, emoji, description }: FeatureItem) {
   return (
-    <div className={clsx("col col--4")}>
+    <div className={clsx("col col--3")}>
       <div className="text--center">
         <span className={styles.featureEmoji}>{emoji}</span>
       </div>

@@ -32,7 +32,7 @@ export default function Home(): React.ReactElement {
   return (
     <Layout
       title="Welcome"
-      description="A fast, modern version-checking library for React Native, powered by Nitro Modules."
+      description="A lightweight, fast version-checking library for React Native, powered by Nitro Modules."
     >
       <HomepageHeader />
       <main>

@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-  <b>A fast, modern version-checking library for React Native, powered by <a href="https://github.com/mrousavy/nitro">Nitro Modules</a>.</b>
+  <b>A lightweight, fast version-checking library for React Native, powered by <a href="https://github.com/mrousavy/nitro">Nitro Modules</a>.</b>
 </p>
 
 <p align="center">

@@ -1,7 +1,7 @@
 {
   "name": "react-native-nitro-version-check",
   "version": "1.0.1",
-  "description": "react-native-nitro-version-check",
+  "description": "A lightweight, fast version-checking library for React Native, powered by Nitro Modules",
   "main": "lib/index",
   "module": "lib/index",
   "types": "lib/index.d.ts",
@@ -62,7 +62,8 @@
     "nitro-modules-version",
     "app store version",
     "play store version",
-    "market version"
+    "market version",
+    "lightweight"
   ],
   "repository": {
     "type": "git",
