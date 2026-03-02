@@ -35,6 +35,8 @@ if (await needsUpdate()) {
 bun add react-native-nitro-version-check
 ```
 
+> Check the [full installation guide](https://alshehriali0.github.io/react-native-nitro-version-check/docs/installation) for platform setup and additional dependencies.
+
 ## Documentation
 
 - [**Nitro Version Check** docs 📚](https://alshehriali0.github.io/react-native-nitro-version-check/)
