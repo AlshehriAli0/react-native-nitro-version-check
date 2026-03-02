@@ -31,10 +31,8 @@ if (await needsUpdate()) {
 
 ## Installation
 
-Install [react-native-nitro-version-check](https://npmjs.org/react-native-nitro-version-check) from npm:
 ```sh
-bun add react-native-nitro-version-check react-native-nitro-modules
-cd ios && pod install
+bun add react-native-nitro-version-check
 ```
 
 ## Documentation
