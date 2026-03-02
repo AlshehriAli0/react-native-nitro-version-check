@@ -7,16 +7,20 @@ title: Installation
 
 Get up and running with Nitro Version Check in your React Native project. The setup takes less than a minute.
 
-## Install packages
+## Install the library
 
 ```sh
-bun add react-native-nitro-version-check react-native-nitro-modules
+bun add react-native-nitro-version-check
 ```
 
-or with npm:
+> Or use your preferred package manager (`npm`, `yarn`, etc.)
+
+### Nitro Modules
+
+This library requires [react-native-nitro-modules](https://github.com/mrousavy/nitro). If you don't already have it installed, add it:
 
 ```sh
-npm install react-native-nitro-version-check react-native-nitro-modules
+bun add react-native-nitro-modules
 ```
 
 ## Platform setup
