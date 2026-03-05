@@ -77,9 +77,9 @@ namespace margelo::nitro::nitroversioncheck {
     auto __result = method(_javaPart);
     return __result->toStdString();
   }
-  std::shared_ptr<Promise<std::string>> JHybridVersionCheckSpec::getStoreUrl() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("getStoreUrl");
-    auto __result = method(_javaPart);
+  std::shared_ptr<Promise<std::string>> JHybridVersionCheckSpec::getStoreUrl(const std::optional<std::string>& countryCode) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* countryCode */)>("getStoreUrl");
+    auto __result = method(_javaPart, countryCode.has_value() ? jni::make_jstring(countryCode.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<std::string>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
@@ -93,9 +93,9 @@ namespace margelo::nitro::nitroversioncheck {
       return __promise;
     }();
   }
-  std::shared_ptr<Promise<std::string>> JHybridVersionCheckSpec::getLatestVersion() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("getLatestVersion");
-    auto __result = method(_javaPart);
+  std::shared_ptr<Promise<std::string>> JHybridVersionCheckSpec::getLatestVersion(const std::optional<std::string>& countryCode) {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* countryCode */)>("getLatestVersion");
+    auto __result = method(_javaPart, countryCode.has_value() ? jni::make_jstring(countryCode.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<std::string>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {

@@ -34,28 +34,28 @@ Benchmarked against [`react-native-version-check`](https://github.com/kimxogus/r
 First, [install the package](/docs/installation).
 
 ```ts
-import {
-  VersionCheck,
-  getCountry,
-  getStoreUrl,
-  getLatestVersion,
-  needsUpdate,
-} from 'react-native-nitro-version-check'
+import { VersionCheck } from 'react-native-nitro-version-check'
 
-// Sync properties — no await needed
+// Direct access
 console.log(VersionCheck.version)       // "1.2.0"
 console.log(VersionCheck.buildNumber)   // "42"
 console.log(VersionCheck.packageName)   // "com.example.app"
 console.log(VersionCheck.installSource) // "appstore" | "testflight" | "playstore" | undefined
-console.log(getCountry())              // "US"
+console.log(VersionCheck.getCountry())  // "US"
+
+// Or destructure properties
+const { version, buildNumber, packageName, installSource } = VersionCheck
 
 // Async operations
-const url    = await getStoreUrl()       // App Store / Play Store URL
-const latest = await getLatestVersion()  // "1.3.0"
+const url    = await VersionCheck.getStoreUrl()       // App Store / Play Store URL
+const latest = await VersionCheck.getLatestVersion()  // "1.3.0" (uses device country)
+
+// Specify a different region for version lookup (iOS only)
+const latestUS = await VersionCheck.getLatestVersion({ countryCode: 'US' })
 
 // Check for updates
-if (await needsUpdate()) {
-  Linking.openURL(await getStoreUrl())
+if (await VersionCheck.needsUpdate()) {
+  Linking.openURL(await VersionCheck.getStoreUrl())
 }
 ```
 

@@ -103,7 +103,7 @@
         "useGetterReturn": "error"
       }
     },
-    "includes": ["package/src/**", "example/**", "!**/*.d.ts", "!**/node_modules/**"]
+    "includes": ["package/src/**", "example/**", "!**/*.d.ts", "!**/node_modules/**", "!**/__tests__/**"]
   },
   "javascript": {
     "formatter": {
@@ -120,6 +120,39 @@
   },
   "html": { "formatter": { "selfCloseVoidElements": "always" } },
   "overrides": [
+    {
+      "includes": ["**/__tests__/**/*.{js,jsx,ts,tsx}"],
+      "javascript": {
+        "globals": [
+          "require",
+          "console",
+          "setTimeout",
+          "requestAnimationFrame",
+          "setInterval",
+          "process",
+          "__DEV__",
+          "cancelAnimationFrame",
+          "fetch",
+          "clearTimeout",
+          "clearInterval",
+          "jest",
+          "describe",
+          "it",
+          "expect",
+          "beforeEach",
+          "afterEach",
+          "beforeAll",
+          "afterAll"
+        ]
+      },
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedVariables": "off"
+          }
+        }
+      }
+    },
     {
       "includes": ["**/*.{js,jsx,ts,tsx}"],
       "javascript": {

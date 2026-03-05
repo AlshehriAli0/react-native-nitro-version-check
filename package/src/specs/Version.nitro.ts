@@ -10,7 +10,7 @@ export interface VersionCheck
   readonly packageName: string;
   readonly installSource: string | undefined;
   getCountry(): string;
-  getStoreUrl(): Promise<string>;
-  getLatestVersion(): Promise<string>;
+  getStoreUrl(countryCode?: string): Promise<string>;
+  getLatestVersion(countryCode?: string): Promise<string>;
   needsUpdate(): Promise<boolean>;
 }

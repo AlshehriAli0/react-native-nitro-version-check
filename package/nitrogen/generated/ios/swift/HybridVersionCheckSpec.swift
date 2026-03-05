@@ -17,8 +17,8 @@ public protocol HybridVersionCheckSpec_protocol: HybridObject {
 
   // Methods
   func getCountry() throws -> String
-  func getStoreUrl() throws -> Promise<String>
-  func getLatestVersion() throws -> Promise<String>
+  func getStoreUrl(countryCode: String?) throws -> Promise<String>
+  func getLatestVersion(countryCode: String?) throws -> Promise<String>
   func needsUpdate() throws -> Promise<Bool>
 }
 

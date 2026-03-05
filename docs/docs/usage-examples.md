@@ -12,13 +12,23 @@ Display the current app version and build number:
 ```ts
 import { VersionCheck } from 'react-native-nitro-version-check'
 
-// All sync — no await needed
+// Direct access
 const info = {
   version: VersionCheck.version,         // "1.2.0"
   build: VersionCheck.buildNumber,       // "42"
   package: VersionCheck.packageName,     // "com.example.app"
   source: VersionCheck.installSource,    // "appstore" | undefined
   country: VersionCheck.getCountry(),    // "US"
+}
+
+// Or destructure properties
+const { version, buildNumber, packageName, installSource, getCountry } = VersionCheck
+const appInfo = {
+  version,
+  build: buildNumber,
+  package: packageName,
+  source: installSource,
+  country: getCountry(),
 }
 ```
 
@@ -28,11 +38,11 @@ Prompt the user to update when a new version is available:
 
 ```ts
 import { Alert, Linking } from 'react-native'
-import { needsUpdate, getStoreUrl } from 'react-native-nitro-version-check'
+import { VersionCheck } from 'react-native-nitro-version-check'
 
 async function checkForUpdates() {
-  if (await needsUpdate()) {
-    const url = await getStoreUrl()
+  if (await VersionCheck.needsUpdate()) {
+    const url = await VersionCheck.getStoreUrl()
     Alert.alert(
       'Update Available',
       'A new version is available. Please update to continue.',
@@ -47,16 +57,16 @@ async function checkForUpdates() {
 Only prompt users for major version bumps (e.g., 1.x → 2.x):
 
 ```ts
-import { needsUpdate } from 'react-native-nitro-version-check'
+import { VersionCheck } from 'react-native-nitro-version-check'
 
 // Only returns true for major version bumps
-const hasMajorUpdate = await needsUpdate({ level: 'major' })
+const hasMajorUpdate = await VersionCheck.needsUpdate({ level: 'major' })
 
 // Returns true for major OR minor bumps
-const hasMinorUpdate = await needsUpdate({ level: 'minor' })
+const hasMinorUpdate = await VersionCheck.needsUpdate({ level: 'minor' })
 
 // Returns true for any version increase (default)
-const hasAnyUpdate = await needsUpdate({ level: 'patch' })
+const hasAnyUpdate = await VersionCheck.needsUpdate({ level: 'patch' })
 ```
 
 ## Detect Install Source
@@ -81,17 +91,33 @@ switch (VersionCheck.installSource) {
 }
 ```
 
-## Compare Versions Manually
+## Check Latest Version by Region
 
-Use `compareVersions` for custom version logic:
+By default, `getLatestVersion()` uses the device's country code. You can specify a different region:
 
 ```ts
-import { compareVersions } from 'react-native-nitro-version-check'
+import { VersionCheck } from 'react-native-nitro-version-check'
 
-const result = compareVersions('1.2.0', '1.3.0')
+// Uses device country automatically
+const latest = await VersionCheck.getLatestVersion()
+
+// Check version in a specific region (iOS only)
+const latestUS = await VersionCheck.getLatestVersion({ countryCode: 'US' })
+const latestGB = await VersionCheck.getLatestVersion({ countryCode: 'GB' })
+const latestJP = await VersionCheck.getLatestVersion({ countryCode: 'JP' })
+```
+
+## Compare Versions Manually
+
+Use `VersionCheck.compareVersions()` for custom version logic:
+
+```ts
+import { VersionCheck } from 'react-native-nitro-version-check'
+
+const result = VersionCheck.compareVersions('1.2.0', '1.3.0')
 // result === -1 (first is older)
 
-if (compareVersions(currentVersion, minimumVersion) < 0) {
+if (VersionCheck.compareVersions(currentVersion, minimumVersion) < 0) {
   // Current version is below minimum — force update
 }
 ```
@@ -102,7 +128,7 @@ Wrap the async check in a custom hook:
 
 ```ts
 import { useEffect, useState } from 'react'
-import { needsUpdate, getLatestVersion } from 'react-native-nitro-version-check'
+import { VersionCheck } from 'react-native-nitro-version-check'
 
 function useUpdateCheck() {
   const [updateAvailable, setUpdateAvailable] = useState(false)
@@ -111,8 +137,8 @@ function useUpdateCheck() {
   useEffect(() => {
     async function check() {
       const [needs, latest] = await Promise.all([
-        needsUpdate(),
-        getLatestVersion(),
+        VersionCheck.needsUpdate(),
+        VersionCheck.getLatestVersion(),
       ])
       setUpdateAvailable(needs)
       setLatestVersion(latest)
@@ -130,12 +156,12 @@ If you're using [TanStack Query (React Query)](https://tanstack.com/query) for m
 
 ```ts
 import { useQuery } from '@tanstack/react-query'
-import { needsUpdate } from 'react-native-nitro-version-check'
+import { VersionCheck } from 'react-native-nitro-version-check'
 
 export const useNeedsUpdate = () => {
   return useQuery({
     queryKey: ['needs-update'],
-    queryFn: needsUpdate,
+    queryFn: () => VersionCheck.needsUpdate(),
   })
 }
 ```

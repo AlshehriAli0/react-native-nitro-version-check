@@ -64,6 +64,14 @@ lib/
 .cache
 *.tsbuildinfo
 
+# Test coverage and Jest
+coverage/
+package/coverage/
+.jest-cache/
+
+# Claude Code
+.claude/
+
 # Docusaurus
 docs/.docusaurus/
 docs/build/

@@ -66,11 +66,11 @@ abstract class HybridVersionCheckSpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun getStoreUrl(): Promise<String>
+  abstract fun getStoreUrl(countryCode: String?): Promise<String>
   
   @DoNotStrip
   @Keep
-  abstract fun getLatestVersion(): Promise<String>
+  abstract fun getLatestVersion(countryCode: String?): Promise<String>
   
   @DoNotStrip
   @Keep

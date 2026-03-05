@@ -36,15 +36,17 @@ class HybridVersionCheck : HybridVersionCheckSpec() {
         return java.util.Locale.getDefault().country ?: "unknown"
     }
 
-    override fun getStoreUrl(): Promise<String> {
+    override fun getStoreUrl(countryCode: String?): Promise<String> {
         return Promise.async {
+            // Country code is not used on Android Play Store, but parameter is kept for API consistency
             "https://play.google.com/store/apps/details?id=$packageName"
         }
     }
 
-    override fun getLatestVersion(): Promise<String> {
+    override fun getLatestVersion(countryCode: String?): Promise<String> {
         return Promise.async {
             try {
+                // Country code is not used on Android Play Store, but parameter is kept for API consistency
                 val url = URL("https://play.google.com/store/apps/details?id=$packageName&hl=en")
                 val connection = url.openConnection() as HttpURLConnection
                 connection.connectTimeout = TIMEOUT_MS
