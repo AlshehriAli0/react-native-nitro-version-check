@@ -93,7 +93,7 @@ These are new and have no equivalent in the old library:
 For Expo:
 
 ```sh
-npx expo prebuild --clean
+bunx expo prebuild --clean
 ```
 
 For bare React Native:

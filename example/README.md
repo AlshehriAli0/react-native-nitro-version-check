@@ -17,7 +17,7 @@ bun install
 
 # 2. Generate native projects
 cd example
-npx expo prebuild
+bunx expo prebuild
 
 # 3. Run the app
 bun run ios      # iOS

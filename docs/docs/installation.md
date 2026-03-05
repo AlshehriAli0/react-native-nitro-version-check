@@ -17,7 +17,7 @@ bun add react-native-nitro-version-check
 
 ### Nitro Modules
 
-This library requires [react-native-nitro-modules](https://github.com/mrousavy/nitro). If you don't already have it installed, add it:
+This library requires [`react-native-nitro-modules`](https://github.com/mrousavy/nitro). If you don't already have it installed, add it:
 
 ```sh
 bun add react-native-nitro-modules
@@ -30,7 +30,7 @@ bun add react-native-nitro-modules
 For Expo projects, run prebuild after installing:
 
 ```sh
-npx expo prebuild
+bunx expo prebuild
 ```
 
 ### Bare React Native
@@ -44,8 +44,10 @@ cd ios && pod install
 ## Requirements
 
 - React Native 0.76+
-- [react-native-nitro-modules](https://github.com/mrousavy/nitro) >= 0.35.0 (for v1.1.0+)
-- [react-native-nitro-modules](https://github.com/mrousavy/nitro) >= 0.32.0 (for v1.0.x)
+- [`react-native-nitro-modules`](https://github.com/mrousavy/nitro) >= 0.35.0 (for v1.1.0+)
+- [`react-native-nitro-modules`](https://github.com/mrousavy/nitro) >= 0.32.0 (for v1.0.x)
+
+> See the [Compatibility](/docs/compatibility) guide to understand version requirements and migration paths.
 
 ## Verify installation
 

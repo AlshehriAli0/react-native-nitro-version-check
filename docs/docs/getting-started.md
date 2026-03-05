@@ -5,7 +5,7 @@ title: Getting Started
 
 # Getting Started
 
-**react-native-nitro-version-check** is a lightweight, fast version-checking library for React Native, powered by [Nitro Modules](https://github.com/mrousavy/nitro).
+`react-native-nitro-version-check` is a lightweight, fast version-checking library for React Native, powered by [Nitro Modules](https://github.com/mrousavy/nitro).
 
 It's a drop-in replacement for the unmaintained [`react-native-version-check`](https://github.com/kimxogus/react-native-version-check) — rewritten from scratch for performance.
 
