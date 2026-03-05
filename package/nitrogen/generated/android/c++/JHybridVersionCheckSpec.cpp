@@ -16,69 +16,63 @@
 
 namespace margelo::nitro::nitroversioncheck {
 
-  jni::local_ref<JHybridVersionCheckSpec::jhybriddata> JHybridVersionCheckSpec::initHybrid(jni::alias_ref<jhybridobject> jThis) {
+  std::shared_ptr<JHybridVersionCheckSpec> JHybridVersionCheckSpec::JavaPart::getJHybridVersionCheckSpec() {
+    auto hybridObject = JHybridObject::JavaPart::getJHybridObject();
+    auto castHybridObject = std::dynamic_pointer_cast<JHybridVersionCheckSpec>(hybridObject);
+    if (castHybridObject == nullptr) [[unlikely]] {
+      throw std::runtime_error("Failed to downcast JHybridObject to JHybridVersionCheckSpec!");
+    }
+    return castHybridObject;
+  }
+
+  jni::local_ref<JHybridVersionCheckSpec::CxxPart::jhybriddata> JHybridVersionCheckSpec::CxxPart::initHybrid(jni::alias_ref<jhybridobject> jThis) {
     return makeCxxInstance(jThis);
   }
 
-  void JHybridVersionCheckSpec::registerNatives() {
-    registerHybrid({
-      makeNativeMethod("initHybrid", JHybridVersionCheckSpec::initHybrid),
-    });
-  }
-
-  size_t JHybridVersionCheckSpec::getExternalMemorySize() noexcept {
-    static const auto method = javaClassStatic()->getMethod<jlong()>("getMemorySize");
-    return method(_javaPart);
-  }
-
-  bool JHybridVersionCheckSpec::equals(const std::shared_ptr<HybridObject>& other) {
-    if (auto otherCast = std::dynamic_pointer_cast<JHybridVersionCheckSpec>(other)) {
-      return _javaPart == otherCast->_javaPart;
+  std::shared_ptr<JHybridObject> JHybridVersionCheckSpec::CxxPart::createHybridObject(const jni::local_ref<JHybridObject::JavaPart>& javaPart) {
+    auto castJavaPart = jni::dynamic_ref_cast<JHybridVersionCheckSpec::JavaPart>(javaPart);
+    if (castJavaPart == nullptr) [[unlikely]] {
+      throw std::runtime_error("Failed to cast JHybridObject::JavaPart to JHybridVersionCheckSpec::JavaPart!");
     }
-    return false;
+    return std::make_shared<JHybridVersionCheckSpec>(castJavaPart);
   }
 
-  void JHybridVersionCheckSpec::dispose() noexcept {
-    static const auto method = javaClassStatic()->getMethod<void()>("dispose");
-    method(_javaPart);
-  }
-
-  std::string JHybridVersionCheckSpec::toString() {
-    static const auto method = javaClassStatic()->getMethod<jni::JString()>("toString");
-    auto javaString = method(_javaPart);
-    return javaString->toStdString();
+  void JHybridVersionCheckSpec::CxxPart::registerNatives() {
+    registerHybrid({
+      makeNativeMethod("initHybrid", JHybridVersionCheckSpec::CxxPart::initHybrid),
+    });
   }
 
   // Properties
   std::string JHybridVersionCheckSpec::getVersion() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getVersion");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getVersion");
     auto __result = method(_javaPart);
     return __result->toStdString();
   }
   std::string JHybridVersionCheckSpec::getBuildNumber() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getBuildNumber");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getBuildNumber");
     auto __result = method(_javaPart);
     return __result->toStdString();
   }
   std::string JHybridVersionCheckSpec::getPackageName() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getPackageName");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getPackageName");
     auto __result = method(_javaPart);
     return __result->toStdString();
   }
   std::optional<std::string> JHybridVersionCheckSpec::getInstallSource() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getInstallSource");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getInstallSource");
     auto __result = method(_javaPart);
     return __result != nullptr ? std::make_optional(__result->toStdString()) : std::nullopt;
   }
 
   // Methods
   std::string JHybridVersionCheckSpec::getCountry() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getCountry");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getCountry");
     auto __result = method(_javaPart);
     return __result->toStdString();
   }
   std::shared_ptr<Promise<std::string>> JHybridVersionCheckSpec::getStoreUrl(const std::optional<std::string>& countryCode) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* countryCode */)>("getStoreUrl");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* countryCode */)>("getStoreUrl");
     auto __result = method(_javaPart, countryCode.has_value() ? jni::make_jstring(countryCode.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<std::string>::create();
@@ -94,7 +88,7 @@ namespace margelo::nitro::nitroversioncheck {
     }();
   }
   std::shared_ptr<Promise<std::string>> JHybridVersionCheckSpec::getLatestVersion(const std::optional<std::string>& countryCode) {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* countryCode */)>("getLatestVersion");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>(jni::alias_ref<jni::JString> /* countryCode */)>("getLatestVersion");
     auto __result = method(_javaPart, countryCode.has_value() ? jni::make_jstring(countryCode.value()) : nullptr);
     return [&]() {
       auto __promise = Promise<std::string>::create();
@@ -110,7 +104,7 @@ namespace margelo::nitro::nitroversioncheck {
     }();
   }
   std::shared_ptr<Promise<bool>> JHybridVersionCheckSpec::needsUpdate() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("needsUpdate");
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("needsUpdate");
     auto __result = method(_javaPart);
     return [&]() {
       auto __promise = Promise<bool>::create();

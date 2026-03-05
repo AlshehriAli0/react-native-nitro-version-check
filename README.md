@@ -45,6 +45,7 @@ bun add react-native-nitro-version-check
 - [**Nitro Version Check** docs 📚](https://alshehriali0.github.io/react-native-nitro-version-check/)
 - [**Getting Started** guide](https://alshehriali0.github.io/react-native-nitro-version-check/docs/getting-started)
 - [**Installation** guide](https://alshehriali0.github.io/react-native-nitro-version-check/docs/installation)
+- [**Compatibility** guide](https://alshehriali0.github.io/react-native-nitro-version-check/docs/compatibility)
 - [**API Reference**](https://alshehriali0.github.io/react-native-nitro-version-check/docs/api-reference)
 - [**Migration Guide** from react-native-version-check](https://alshehriali0.github.io/react-native-nitro-version-check/docs/migration-guide)
 

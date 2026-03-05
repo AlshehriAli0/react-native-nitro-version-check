@@ -26,20 +26,27 @@ int initialize(JavaVM* vm) {
   });
 }
 
+struct JHybridVersionCheckSpecImpl: public jni::JavaClass<JHybridVersionCheckSpecImpl, JHybridVersionCheckSpec::JavaPart> {
+  static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/nitroversioncheck/HybridVersionCheck;";
+  static std::shared_ptr<JHybridVersionCheckSpec> create() {
+    static auto constructorFn = javaClassStatic()->getConstructor<JHybridVersionCheckSpecImpl::javaobject()>();
+    jni::local_ref<JHybridVersionCheckSpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
+    return javaPart->getJHybridVersionCheckSpec();
+  }
+};
+
 void registerAllNatives() {
   using namespace margelo::nitro;
   using namespace margelo::nitro::nitroversioncheck;
 
   // Register native JNI methods
-  margelo::nitro::nitroversioncheck::JHybridVersionCheckSpec::registerNatives();
+  margelo::nitro::nitroversioncheck::JHybridVersionCheckSpec::CxxPart::registerNatives();
 
   // Register Nitro Hybrid Objects
   HybridObjectRegistry::registerHybridObjectConstructor(
     "VersionCheck",
     []() -> std::shared_ptr<HybridObject> {
-      static DefaultConstructableObject<JHybridVersionCheckSpec::javaobject> object("com/margelo/nitro/nitroversioncheck/HybridVersionCheck");
-      auto instance = object.create();
-      return instance->cthis()->shared();
+      return JHybridVersionCheckSpecImpl::create();
     }
   );
 }

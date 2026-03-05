@@ -44,7 +44,8 @@ cd ios && pod install
 ## Requirements
 
 - React Native 0.76+
-- [react-native-nitro-modules](https://github.com/mrousavy/nitro) >= 0.32.0
+- [react-native-nitro-modules](https://github.com/mrousavy/nitro) >= 0.35.0 (for v1.1.0+)
+- [react-native-nitro-modules](https://github.com/mrousavy/nitro) >= 0.32.0 (for v1.0.x)
 
 ## Verify installation
 
