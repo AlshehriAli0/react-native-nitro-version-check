@@ -14,6 +14,8 @@ bun add react-native-nitro-version-check
 ```
 
 > Or use your preferred package manager (`npm`, `yarn`, etc.)
+>
+> **Version 2.x and newer requires Nitro 0.35.0+** — for earlier versions, see [Compatibility](/docs/compatibility)
 
 ### Nitro Modules
 
@@ -44,8 +46,8 @@ cd ios && pod install
 ## Requirements
 
 - React Native 0.76+
-- [`react-native-nitro-modules`](https://github.com/mrousavy/nitro) >= 0.35.0 (for v1.1.0+)
-- [`react-native-nitro-modules`](https://github.com/mrousavy/nitro) >= 0.32.0 (for v1.0.x)
+- **v2.x+**: [`react-native-nitro-modules`](https://github.com/mrousavy/nitro) >= 0.35.0
+- **v1.x**: [`react-native-nitro-modules`](https://github.com/mrousavy/nitro) >= 0.32.0
 
 > See the [Compatibility](/docs/compatibility) guide to understand version requirements and migration paths.
 

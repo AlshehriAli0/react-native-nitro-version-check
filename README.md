@@ -38,6 +38,8 @@ if (await VersionCheck.needsUpdate()) {
 bun add react-native-nitro-version-check
 ```
 
+> **Version 2.x and newer requires Nitro 0.35+** — for earlier versions, use version 1.x
+>
 > Check the [full installation guide](https://alshehriali0.github.io/react-native-nitro-version-check/docs/installation) for platform setup and additional dependencies.
 
 ## Documentation

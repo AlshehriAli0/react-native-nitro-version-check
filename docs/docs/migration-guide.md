@@ -16,8 +16,10 @@ Remove the old package and install the new one:
 npm uninstall react-native-version-check
 
 # Install new
-bun add react-native-nitro-version-check react-native-nitro-modules
+bun add react-native-nitro-version-check react-native-nitro-modules@latest
 ```
+
+> **Nitro Version Requirement**: Version 2.x requires `react-native-nitro-modules` >= 0.35.0. See the [Compatibility guide](/docs/compatibility) for version-specific requirements.
 
 ## 2. Update imports
 
