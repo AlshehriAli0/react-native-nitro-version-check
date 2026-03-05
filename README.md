@@ -23,6 +23,9 @@ VersionCheck.buildNumber   // "42"
 VersionCheck.packageName   // "com.example.app"
 VersionCheck.installSource // "appstore" | "testflight" | "playstore" | undefined
 
+// Or destructure properties
+const { version, buildNumber, packageName, installSource } = VersionCheck
+
 // Check for updates
 if (await VersionCheck.needsUpdate()) {
   Linking.openURL(await VersionCheck.getStoreUrl())
