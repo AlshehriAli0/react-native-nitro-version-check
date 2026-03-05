@@ -16,10 +16,13 @@ jobs:
       - uses: oven-sh/setup-bun@v2
 
       - run: bun install --frozen-lockfile
+        working-directory: ./package
 
       - run: bun run lint
+        working-directory: ./package
 
       - run: bun run typecheck
+        working-directory: ./package
 
   test:
     name: Test Suite
@@ -30,8 +33,10 @@ jobs:
       - uses: oven-sh/setup-bun@v2
 
       - run: bun install --frozen-lockfile
+        working-directory: ./package
 
       - run: bun run test:coverage
+        working-directory: ./package
 
       - name: Upload coverage reports
         uses: codecov/codecov-action@v4
