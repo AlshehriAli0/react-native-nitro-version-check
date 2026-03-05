@@ -30,10 +30,12 @@ class HybridVersionCheck: HybridVersionCheckSpec {
         return Locale.current.regionCode ?? "unknown"
     }
 
-    func getStoreUrl() throws -> Promise<String> {
-        return Promise.async {
+    func getStoreUrl(countryCode: String? = nil) throws -> Promise<String> {
+        return Promise.async { [self] in
             let bundleId = Bundle.main.bundleIdentifier ?? ""
-            let url = URL(string: "https://itunes.apple.com/lookup?bundleId=\(bundleId)")!
+            let country = countryCode ?? (try? self.getCountry()) ?? "US"
+            let urlString = "https://itunes.apple.com/\(country.lowercased())/lookup?bundleId=\(bundleId)"
+            let url = URL(string: urlString)!
             let (data, _) = try await HybridVersionCheck.session.data(from: url)
             guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
                   let results = json["results"] as? [[String: Any]],
@@ -44,10 +46,12 @@ class HybridVersionCheck: HybridVersionCheckSpec {
         }
     }
 
-    func getLatestVersion() throws -> Promise<String> {
-        return Promise.async {
+    func getLatestVersion(countryCode: String? = nil) throws -> Promise<String> {
+        return Promise.async { [self] in
             let bundleId = Bundle.main.bundleIdentifier ?? ""
-            let url = URL(string: "https://itunes.apple.com/lookup?bundleId=\(bundleId)")!
+            let country = countryCode ?? (try? self.getCountry()) ?? "US"
+            let urlString = "https://itunes.apple.com/\(country.lowercased())/lookup?bundleId=\(bundleId)"
+            let url = URL(string: urlString)!
             let (data, _) = try await HybridVersionCheck.session.data(from: url)
             guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
                   let results = json["results"] as? [[String: Any]],

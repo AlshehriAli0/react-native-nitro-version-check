@@ -27,62 +27,62 @@ import { VersionCheck } from 'react-native-nitro-version-check'
 | Method | Returns | Description |
 |--------|---------|-------------|
 | `getCountry()` | `string` | Device's 2-letter ISO country code (sync) |
-| `getStoreUrl()` | `Promise<string>` | App Store / Play Store URL |
-| `getLatestVersion()` | `Promise<string>` | Latest version available in the store |
-| `needsUpdate()` | `Promise<boolean>` | Whether an update is available |
+| `getStoreUrl(options?)` | `Promise<string>` | App Store / Play Store URL with optional country code |
+| `getLatestVersion(options?)` | `Promise<string>` | Latest version available in the store with optional country code |
+| `needsUpdate(options?)` | `Promise<boolean>` | Whether an update is available with optional level filtering |
 
-## Standalone Exports
-
-All methods are also available as individual named exports:
-
-```ts
-import {
-  getCountry,
-  getStoreUrl,
-  getLatestVersion,
-  needsUpdate,
-  compareVersions,
-} from 'react-native-nitro-version-check'
-```
-
-### `getCountry()`
+### `VersionCheck.getCountry()`
 
 Returns the device's current 2-letter ISO country code. This is a **synchronous** call.
 
 ```ts
-const country = getCountry() // "US"
+const country = VersionCheck.getCountry() // "US"
 ```
 
-### `getStoreUrl()`
+### `VersionCheck.getStoreUrl(options?)`
 
 Returns the store URL for this app. Automatically resolves to the App Store on iOS and Play Store on Android.
 
 ```ts
-const url = await getStoreUrl()
+const url = await VersionCheck.getStoreUrl()
+const urlUS = await VersionCheck.getStoreUrl({ countryCode: 'US' })
 Linking.openURL(url)
 ```
 
-### `getLatestVersion()`
+#### Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `countryCode` | `string` | device country | 2-letter ISO country code (iOS only, ignored on Android) |
+
+### `VersionCheck.getLatestVersion(options?)`
 
 Fetches the latest version of this app available in the store. Queries the iTunes API on iOS and the Play Store on Android.
 
 ```ts
-const latest = await getLatestVersion() // "1.3.0"
+const latest = await VersionCheck.getLatestVersion() // "1.3.0"
+const latestUS = await VersionCheck.getLatestVersion({ countryCode: 'US' })
 ```
 
-### `needsUpdate(options?)`
+#### Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `countryCode` | `string` | device country | 2-letter ISO country code (iOS only, ignored on Android) |
+
+### `VersionCheck.needsUpdate(options?)`
 
 Checks whether an app update is available using semantic version comparison.
 
 ```ts
 // Any version increase
-if (await needsUpdate()) {
-  const url = await getStoreUrl()
+if (await VersionCheck.needsUpdate()) {
+  const url = await VersionCheck.getStoreUrl()
   Linking.openURL(url)
 }
 
 // Only prompt for major updates (1.x → 2.x)
-if (await needsUpdate({ level: 'major' })) {
+if (await VersionCheck.needsUpdate({ level: 'major' })) {
   // ...
 }
 ```
@@ -97,16 +97,14 @@ if (await needsUpdate({ level: 'major' })) {
 - `"minor"` — returns `true` for major or minor bumps
 - `"patch"` — returns `true` for any version increase (default)
 
-### `compareVersions(v1, v2)`
+### `VersionCheck.compareVersions(v1, v2)`
 
-Compare two semver strings. Returns `-1`, `0`, or `1`.
+Compare two semantic version strings. Returns `-1` (first is older), `0` (equal), or `1` (first is newer).
 
 ```ts
-import { compareVersions } from 'react-native-nitro-version-check'
-
-compareVersions('1.0.0', '1.0.1') // -1
-compareVersions('2.0.0', '2.0.0') //  0
-compareVersions('3.0.0', '2.9.9') //  1
+VersionCheck.compareVersions('1.0.0', '1.0.1') // -1
+VersionCheck.compareVersions('2.0.0', '2.0.0') //  0
+VersionCheck.compareVersions('3.0.0', '2.9.9') //  1
 ```
 
 ## Types

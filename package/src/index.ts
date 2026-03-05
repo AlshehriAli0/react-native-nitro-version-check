@@ -12,66 +12,10 @@ const packageName = HybridVersionCheck.packageName;
 const installSource = HybridVersionCheck.installSource;
 
 /**
- * Returns the device's current 2-letter ISO country code.
- *
- * @example
- * ```ts
- * getCountry() // "US"
- * ```
- */
-export const getCountry = () => HybridVersionCheck.getCountry();
-
-/**
- * Returns the store URL for this app.
- *
- * Automatically resolves to the App Store on iOS and Play Store on Android.
- *
- * @example
- * ```ts
- * const url = await getStoreUrl();
- * Linking.openURL(url);
- * ```
- */
-export const getStoreUrl = () => HybridVersionCheck.getStoreUrl();
-
-/**
- * Fetches the latest version of this app available in the store.
- *
- * @example
- * ```ts
- * const latest = await getLatestVersion(); // "1.3.0"
- * ```
- */
-export const getLatestVersion = () => HybridVersionCheck.getLatestVersion();
-
-/**
- * Checks whether an app update is available.
- *
- * Uses semantic version comparison. By default checks for any version
- * increase, but you can filter by granularity:
- *
- * - `"major"` — only returns `true` for major bumps (1.x → 2.x)
- * - `"minor"` — returns `true` for major or minor bumps
- * - `"patch"` — returns `true` for any version increase (default)
- *
- * @example
- * ```ts
- * if (await needsUpdate()) {
- *   const url = await getStoreUrl();
- *   Linking.openURL(url);
- * }
- *
- * // Only prompt for major updates
- * const majorUpdate = await needsUpdate({ level: "major" });
- * ```
- */
-export const needsUpdate = async (options?: { level?: UpdateLevel }): Promise<boolean> => {
-  const latest = await HybridVersionCheck.getLatestVersion();
-  return isNewerVersion(version, latest, options?.level ?? "patch");
-};
-
-/**
  * All version-check APIs in one object.
+ *
+ * Provides access to app version information, store URLs, and update checking.
+ * Sync properties are cached at module init for zero native overhead.
  *
  * @example
  * ```ts
@@ -81,6 +25,9 @@ export const needsUpdate = async (options?: { level?: UpdateLevel }): Promise<bo
  * VersionCheck.getCountry() // "US"
  *
  * const url = await VersionCheck.getStoreUrl();
+ * if (await VersionCheck.needsUpdate()) {
+ *   Linking.openURL(url);
+ * }
  * ```
  */
 export const VersionCheck = {
@@ -144,31 +91,57 @@ export const VersionCheck = {
    * VersionCheck.getCountry() // "US"
    * ```
    */
-  getCountry,
+  getCountry: () => HybridVersionCheck.getCountry(),
   /**
    * Returns the App Store (iOS) or Play Store (Android) URL for this app.
+   *
+   * @param options - Optional configuration
+   * @param options.countryCode - 2-letter ISO country code (e.g., "US", "GB")
+   *   Defaults to the device's current country from `getCountry()`.
+   *   Only used on iOS; ignored on Android.
    *
    * @example
    * ```ts
    * const url = await VersionCheck.getStoreUrl();
+   * const urlUS = await VersionCheck.getStoreUrl({ countryCode: "US" });
    * Linking.openURL(url);
    * ```
    */
-  getStoreUrl,
+  getStoreUrl: async (options?: { countryCode?: string }): Promise<string> => {
+    return HybridVersionCheck.getStoreUrl(options?.countryCode);
+  },
   /**
    * Fetches the latest version of this app available in the store.
    *
    * Queries the iTunes API on iOS and the Play Store on Android.
+   * On iOS, uses the device's current country code by default but can be overridden.
+   *
+   * @param options - Optional configuration
+   * @param options.countryCode - 2-letter ISO country code (e.g., "US", "GB")
+   *   Defaults to the device's current country from `getCountry()`.
+   *   If the device region changes, the next call will use the new country.
+   *   Only used on iOS; ignored on Android.
    *
    * @example
    * ```ts
-   * const latest = await VersionCheck.getLatestVersion(); // "1.3.0"
+   * const latest = await VersionCheck.getLatestVersion(); // Uses current device country
+   * const latestUS = await VersionCheck.getLatestVersion({ countryCode: "US" });
+   * const latestGB = await VersionCheck.getLatestVersion({ countryCode: "GB" });
    * ```
    */
-  getLatestVersion,
+  getLatestVersion: async (options?: { countryCode?: string }): Promise<string> => {
+    return HybridVersionCheck.getLatestVersion(options?.countryCode);
+  },
   /**
    * Checks whether an app update is available by comparing the current
    * version against the latest store version.
+   *
+   * Uses semantic version comparison. By default checks for any version
+   * increase, but you can filter by granularity:
+   *
+   * - `"major"` — only returns `true` for major bumps (1.x → 2.x)
+   * - `"minor"` — returns `true` for major or minor bumps
+   * - `"patch"` — returns `true` for any version increase (default)
    *
    * @example
    * ```ts
@@ -176,10 +149,31 @@ export const VersionCheck = {
    *   const url = await VersionCheck.getStoreUrl();
    *   Linking.openURL(url);
    * }
+   *
+   * // Only prompt for major updates
+   * const majorUpdate = await VersionCheck.needsUpdate({ level: "major" });
    * ```
    */
-  needsUpdate: () => HybridVersionCheck.needsUpdate(),
+  needsUpdate: async (options?: { level?: UpdateLevel }): Promise<boolean> => {
+    const latest = await HybridVersionCheck.getLatestVersion();
+    return isNewerVersion(version, latest, options?.level ?? "patch");
+  },
+  /**
+   * Compares two semantic version strings.
+   *
+   * @returns -1 if v1 < v2, 0 if v1 === v2, 1 if v1 > v2
+   *
+   * @example
+   * ```ts
+   * VersionCheck.compareVersions('1.0.0', '1.0.1') // -1
+   * VersionCheck.compareVersions('2.0.0', '2.0.0') //  0
+   * VersionCheck.compareVersions('3.0.0', '2.9.9') //  1
+   *
+   * if (VersionCheck.compareVersions(currentVersion, minimumVersion) < 0) {
+   *   // Current version is below minimum — force update
+   * }
+   * ```
+   */
+  compareVersions,
 } as const;
-
-export { compareVersions };
 export type { UpdateLevel };

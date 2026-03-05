@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { getLatestVersion, getStoreUrl, needsUpdate, VersionCheck } from "react-native-nitro-version-check";
+import { VersionCheck } from "react-native-nitro-version-check";
 import BenchmarkScreen from "./BenchmarkScreen";
 
 export default function App() {
@@ -15,20 +15,20 @@ export default function App() {
   useEffect(() => {
     const fetchAll = async () => {
       try {
-        const [url, latest] = await Promise.all([getStoreUrl(), getLatestVersion()]);
+        const [url, latest] = await Promise.all([VersionCheck.getStoreUrl(), VersionCheck.getLatestVersion()]);
         setStoreUrl(url);
         setLatestVersion(latest);
 
         // Check each level to determine the most specific update type
-        const isMajor = await needsUpdate({ level: "major" });
+        const isMajor = await VersionCheck.needsUpdate({ level: "major" });
         if (isMajor) {
           setUpdateLevel("major");
         } else {
-          const isMinor = await needsUpdate({ level: "minor" });
+          const isMinor = await VersionCheck.needsUpdate({ level: "minor" });
           if (isMinor) {
             setUpdateLevel("minor");
           } else {
-            const isPatch = await needsUpdate({ level: "patch" });
+            const isPatch = await VersionCheck.needsUpdate({ level: "patch" });
             if (isPatch) setUpdateLevel("patch");
           }
         }

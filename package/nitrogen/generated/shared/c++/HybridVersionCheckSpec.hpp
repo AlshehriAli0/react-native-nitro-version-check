@@ -54,8 +54,8 @@ namespace margelo::nitro::nitroversioncheck {
     public:
       // Methods
       virtual std::string getCountry() = 0;
-      virtual std::shared_ptr<Promise<std::string>> getStoreUrl() = 0;
-      virtual std::shared_ptr<Promise<std::string>> getLatestVersion() = 0;
+      virtual std::shared_ptr<Promise<std::string>> getStoreUrl(const std::optional<std::string>& countryCode) = 0;
+      virtual std::shared_ptr<Promise<std::string>> getLatestVersion(const std::optional<std::string>& countryCode) = 0;
       virtual std::shared_ptr<Promise<bool>> needsUpdate() = 0;
 
     protected:

@@ -91,16 +91,16 @@ namespace margelo::nitro::nitroversioncheck {
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<std::string>> getStoreUrl() override {
-      auto __result = _swiftPart.getStoreUrl();
+    inline std::shared_ptr<Promise<std::string>> getStoreUrl(const std::optional<std::string>& countryCode) override {
+      auto __result = _swiftPart.getStoreUrl(countryCode);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }
       auto __value = std::move(__result.value());
       return __value;
     }
-    inline std::shared_ptr<Promise<std::string>> getLatestVersion() override {
-      auto __result = _swiftPart.getLatestVersion();
+    inline std::shared_ptr<Promise<std::string>> getLatestVersion(const std::optional<std::string>& countryCode) override {
+      auto __result = _swiftPart.getLatestVersion(countryCode);
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

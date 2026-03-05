@@ -61,11 +61,11 @@ const update = await VersionCheck.needUpdate()
 // diff-remove
 if (update.isNeeded) { ... }
 // diff-add
-if (await needsUpdate()) { ... }
+if (await VersionCheck.needsUpdate()) { ... }
 
 // Granular update level (new!)
 // diff-add
-if (await needsUpdate({ level: 'major' })) { ... }
+if (await VersionCheck.needsUpdate({ level: 'major' })) { ... }
 ```
 
 ### Country code
@@ -74,7 +74,7 @@ if (await needsUpdate({ level: 'major' })) { ... }
 // diff-remove
 const country = await VersionCheck.getCountry()
 // diff-add
-const country = getCountry() // sync!
+const country = VersionCheck.getCountry() // sync!
 ```
 
 ## 4. New features
@@ -85,6 +85,7 @@ These are new and have no equivalent in the old library:
 |---------|-----|
 | Install source detection | `VersionCheck.installSource` |
 | Granular update levels | `needsUpdate({ level: 'major' })` |
+| Region-specific version lookups | `getLatestVersion({ countryCode: 'US' })` |
 | Version comparison utility | `compareVersions(v1, v2)` |
 
 ## 5. Rebuild

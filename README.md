@@ -15,7 +15,7 @@
 ## Example
 
 ```ts
-import { VersionCheck, needsUpdate, getStoreUrl } from 'react-native-nitro-version-check'
+import { VersionCheck } from 'react-native-nitro-version-check'
 
 // Sync — no bridge, no async
 VersionCheck.version       // "1.2.0"
@@ -23,9 +23,12 @@ VersionCheck.buildNumber   // "42"
 VersionCheck.packageName   // "com.example.app"
 VersionCheck.installSource // "appstore" | "testflight" | "playstore" | undefined
 
+// Or destructure properties
+const { version, buildNumber, packageName, installSource } = VersionCheck
+
 // Check for updates
-if (await needsUpdate()) {
-  Linking.openURL(await getStoreUrl())
+if (await VersionCheck.needsUpdate()) {
+  Linking.openURL(await VersionCheck.getStoreUrl())
 }
 ```
 

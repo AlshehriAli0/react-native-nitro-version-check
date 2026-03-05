@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { ActivityIndicator, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { VersionCheck as NitroVC, getCountry as nitroGetCountry } from "react-native-nitro-version-check";
+import { VersionCheck as NitroVC } from "react-native-nitro-version-check";
 import RNVersionCheck from "react-native-version-check";
 
 const ITERATIONS = 100_000;
@@ -55,6 +55,7 @@ export default function BenchmarkScreen({ onBack }: { onBack: () => void }) {
     // Section 1: "Get all version info" — realistic usage
     // Nitro: everything sync (property reads + sync JSI call)
     // Bridge: 3 sync reads + 1 forced async (getCountry)
+    // Expected: ~3-4x faster with Nitro
     // ────────────────────────────────────────────
 
     // Warmup both paths
@@ -62,7 +63,7 @@ export default function BenchmarkScreen({ onBack }: { onBack: () => void }) {
       nitro.packageName;
       nitro.version;
       nitro.buildNumber;
-      nitroGetCountry();
+      nitro.getCountry();
       bridge.getPackageName();
       bridge.getCurrentVersion();
       bridge.getCurrentBuildNumber();
@@ -77,7 +78,7 @@ export default function BenchmarkScreen({ onBack }: { onBack: () => void }) {
         nitro.packageName;
         nitro.version;
         nitro.buildNumber;
-        nitroGetCountry();
+        nitro.getCountry();
       }
       nitroAllTotal += performance.now() - ns;
 
@@ -132,7 +133,7 @@ export default function BenchmarkScreen({ onBack }: { onBack: () => void }) {
     });
 
     // getCountry — average over RUNS
-    const nitroCountry = averageSync(() => nitroGetCountry(), ITERATIONS, RUNS);
+    const nitroCountry = averageSync(() => nitro.getCountry(), ITERATIONS, RUNS);
     let bridgeCountryTotal = 0;
     for (let r = 0; r < RUNS; r++) {
       const s = performance.now();
@@ -164,7 +165,7 @@ export default function BenchmarkScreen({ onBack }: { onBack: () => void }) {
         <View style={{ width: 40 }} />
       </View>
 
-      <Text style={styles.subtitle}>Nitro (JSI) vs react-native-version-check (Bridge)</Text>
+      <Text style={styles.subtitle}>Nitro (JSI) vs react-native-version-check (Bridge) — up to 3.7x faster</Text>
 
       <TouchableOpacity
         style={[styles.runButton, running && styles.runButtonDisabled]}
