@@ -37,10 +37,3 @@ jobs:
 
       - run: bun run test:coverage
         working-directory: ./package
-
-      - name: Upload coverage reports
-        uses: codecov/codecov-action@v4
-        with:
-          files: ./package/coverage/lcov.info
-          flags: unittests
-          name: codecov-umbrella
