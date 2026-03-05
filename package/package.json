@@ -88,9 +88,7 @@
     "npm": {
       "publish": true,
       "skipChecks": true,
-      "publishArgs": [
-        "--provenance --access public"
-      ]
+      "publishArgs": ["--provenance --access public"]
     },
     "github": {
       "release": true
@@ -154,7 +152,7 @@
     "@types/jest": "^29.5.12",
     "@types/react": "^19.1.03",
     "jest": "^29.7.0",
-    "nitrogen": "*",
+    "nitrogen": "^0.35.0",
     "react": "19.2.0",
     "react-native": "0.83.0",
     "react-native-nitro-modules": "*",
@@ -165,6 +163,6 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-nitro-modules": ">=32.0"
+    "react-native-nitro-modules": ">=35.0"
   }
 }

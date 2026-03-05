@@ -42,7 +42,7 @@ bun install
 
 ```sh
 cd example
-npx expo prebuild
+bunx expo prebuild
 bun run ios
 ```
 
@@ -50,7 +50,7 @@ bun run ios
 
 ```sh
 cd example
-npx expo prebuild
+bunx expo prebuild
 bun run android
 ```
 
