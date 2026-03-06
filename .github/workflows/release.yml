@@ -37,6 +37,11 @@ jobs:
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
       - name: Release
         working-directory: package
-        run: bun run release --ci --increment ${{ inputs.version }}
+        run: |
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            bun run release --ci --increment ${{ inputs.version }}
+          else
+            bun run release --ci --increment ${{ inputs.version }} --npm.tag=legacy
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
