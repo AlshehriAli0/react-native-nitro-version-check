@@ -66,7 +66,7 @@ class HybridVersionCheck : HybridVersionCheckSpec() {
     override fun needsUpdate(): Promise<Boolean> {
         return Promise.async {
             try {
-                val latest = getLatestVersion().await()
+                val latest = getLatestVersion(null).await()
                 version != latest
             } catch (e: Exception) {
                 throw Exception("Failed to check for updates: ${e.message}", e)

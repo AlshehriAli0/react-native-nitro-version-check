@@ -50,16 +50,16 @@
     },
     "package": {
       "name": "react-native-nitro-version-check",
-      "version": "1.0.2",
+      "version": "1.1.0",
       "devDependencies": {
         "@release-it/conventional-changelog": "^10.0.5",
         "@types/jest": "^29.5.12",
         "@types/react": "^19.1.03",
         "jest": "^29.7.0",
-        "nitrogen": "*",
+        "nitrogen": "<0.35.0",
         "react": "19.2.0",
         "react-native": "0.83.0",
-        "react-native-nitro-modules": "*",
+        "react-native-nitro-modules": "<0.35.0",
         "release-it": "^19.2.4",
         "ts-jest": "^29.1.2",
         "typescript": "^5.8.3",
@@ -67,7 +67,7 @@
       "peerDependencies": {
         "react": "*",
         "react-native": "*",
-        "react-native-nitro-modules": ">=32.0",
+        "react-native-nitro-modules": "<0.35.0",
       },
     },
   },
