@@ -8,6 +8,7 @@
   "react-native": "src/index",
   "source": "src/index",
   "files": [
+    "src",
     "lib",
     "react-native.config.js",
     "nitrogen",
@@ -88,9 +89,7 @@
     "npm": {
       "publish": true,
       "skipChecks": true,
-      "publishArgs": [
-        "--provenance --access public"
-      ]
+      "publishArgs": ["--provenance --access public"]
     },
     "github": {
       "release": true
