@@ -21,11 +21,11 @@ This page documents the compatibility between different versions of `react-nativ
 
 ### Upgrading from v1.x to v2.0.0+
 
-When you're ready to upgrade to v2.0.0, ensure you have `react-native-nitro-modules` 0.35.0+:
+When you're ready to upgrade to v2.0.0+, ensure you have `react-native-nitro-modules` 0.35.0+:
 
 ```sh
-bun add react-native-nitro-modules@0.35.0
-bun add react-native-nitro-version-check@2.0.0
+bun add react-native-nitro-modules@latest
+bun add react-native-nitro-version-check@latest
 ```
 
 Then rebuild your app:
