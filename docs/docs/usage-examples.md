@@ -67,6 +67,9 @@ const hasMinorUpdate = await VersionCheck.needsUpdate({ level: 'minor' })
 
 // Returns true for any version increase (default)
 const hasAnyUpdate = await VersionCheck.needsUpdate({ level: 'patch' })
+
+// Check against a specific App Store region (iOS only)
+const needsUpdateUS = await VersionCheck.needsUpdate({ countryCode: 'US' })
 ```
 
 ## Detect Install Source

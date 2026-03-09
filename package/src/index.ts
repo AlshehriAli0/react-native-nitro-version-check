@@ -143,6 +143,12 @@ export const VersionCheck = {
    * - `"minor"` — returns `true` for major or minor bumps
    * - `"patch"` — returns `true` for any version increase (default)
    *
+   * @param options - Optional configuration
+   * @param options.level - Update granularity to check for. Defaults to `"patch"`.
+   * @param options.countryCode - 2-letter ISO country code (e.g., "US", "GB")
+   *   Defaults to the device's current country from `getCountry()`.
+   *   Only used on iOS; ignored on Android.
+   *
    * @example
    * ```ts
    * if (await VersionCheck.needsUpdate()) {
@@ -152,10 +158,13 @@ export const VersionCheck = {
    *
    * // Only prompt for major updates
    * const majorUpdate = await VersionCheck.needsUpdate({ level: "major" });
+   *
+   * // Check against a specific App Store region
+   * const needsUpdateUS = await VersionCheck.needsUpdate({ countryCode: "US" });
    * ```
    */
-  needsUpdate: async (options?: { level?: UpdateLevel }): Promise<boolean> => {
-    const latest = await HybridVersionCheck.getLatestVersion();
+  needsUpdate: async (options?: { level?: UpdateLevel; countryCode?: string }): Promise<boolean> => {
+    const latest = await HybridVersionCheck.getLatestVersion(options?.countryCode);
     return isNewerVersion(version, latest, options?.level ?? "patch");
   },
   /**

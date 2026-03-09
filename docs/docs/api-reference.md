@@ -85,6 +85,11 @@ if (await VersionCheck.needsUpdate()) {
 if (await VersionCheck.needsUpdate({ level: 'major' })) {
   // ...
 }
+
+// Check against a specific App Store region
+if (await VersionCheck.needsUpdate({ countryCode: 'US' })) {
+  // ...
+}
 ```
 
 #### Options
@@ -92,6 +97,7 @@ if (await VersionCheck.needsUpdate({ level: 'major' })) {
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `level` | `"major" \| "minor" \| "patch"` | `"patch"` | Minimum version bump to trigger `true` |
+| `countryCode` | `string` | device country | 2-letter ISO country code (iOS only, ignored on Android) |
 
 - `"major"` — only returns `true` for major bumps (1.x → 2.x)
 - `"minor"` — returns `true` for major or minor bumps
