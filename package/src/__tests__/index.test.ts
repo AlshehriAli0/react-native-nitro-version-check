@@ -105,6 +105,20 @@ describe("VersionCheck API", () => {
       }
     });
 
+    it("should accept options with countryCode parameter", async () => {
+      const result = VersionCheck.needsUpdate({ countryCode: "US" });
+      expect(result).toBeInstanceOf(Promise);
+      const resolved = await result;
+      expect(typeof resolved).toBe("boolean");
+    });
+
+    it("should accept both level and countryCode options together", async () => {
+      const result = VersionCheck.needsUpdate({ level: "major", countryCode: "GB" });
+      expect(result).toBeInstanceOf(Promise);
+      const resolved = await result;
+      expect(typeof resolved).toBe("boolean");
+    });
+
     it("should default to patch level when no options provided", async () => {
       const result = await VersionCheck.needsUpdate();
       expect(typeof result).toBe("boolean");

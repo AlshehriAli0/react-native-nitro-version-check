@@ -18,14 +18,6 @@ This page documents the compatibility between different versions of `react-nativ
 
 **Version 2.x and newer is fully built around Nitro 0.35+ support.** All v1.x versions work with Nitro 0.32.0 - 0.34.x.
 
-### Nitro 0.35.0 Improvements
-
-Nitro 0.35.0 includes critical improvements and a memory leak fix in Kotlin HybridObjects. This required changes to:
-
-- **Kotlin**: Regenerated specs with updated JNI initialization
-- **Swift & C++**: Specs regenerated for compatibility
-
-Version 2.x and newer leverage these improvements for better performance and stability.
 
 ### Upgrading from v1.x to v2.0.0+
 
