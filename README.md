@@ -17,7 +17,7 @@
 ```ts
 import { VersionCheck } from 'react-native-nitro-version-check'
 
-// Sync — no bridge, no async
+// Direct access
 VersionCheck.version       // "1.2.0"
 VersionCheck.buildNumber   // "42"
 VersionCheck.packageName   // "com.example.app"
