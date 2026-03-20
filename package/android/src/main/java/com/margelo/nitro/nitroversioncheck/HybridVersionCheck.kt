@@ -1,10 +1,14 @@
 package com.margelo.nitro.nitroversioncheck
 
+import androidx.annotation.Keep
+import com.facebook.proguard.annotations.DoNotStrip
 import com.margelo.nitro.NitroModules
 import com.margelo.nitro.core.Promise
 import java.net.HttpURLConnection
 import java.net.URL
 
+@Keep
+@DoNotStrip
 class HybridVersionCheck : HybridVersionCheckSpec() {
     companion object {
         private const val TIMEOUT_MS = 15_000

@@ -23,10 +23,6 @@ apply plugin: 'org.jetbrains.kotlin.android'
 apply from: '../nitrogen/generated/android/NitroVersionCheck+autolinking.gradle'
 apply from: "./fix-prefab.gradle"
 
-if (isNewArchitectureEnabled()) {
-  apply plugin: "com.facebook.react"
-}
-
 def getExtOrDefault(name) {
   return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["NitroVersionCheck_" + name]
 }
@@ -42,6 +38,7 @@ android {
   compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
 
   defaultConfig {
+    consumerProguardFiles 'consumer-rules.pro'
     minSdkVersion getExtOrIntegerDefault("minSdkVersion")
     targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
     buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
@@ -112,16 +109,6 @@ android {
     targetCompatibility JavaVersion.VERSION_1_8
   }
 
-  sourceSets {
-    main {
-      if (isNewArchitectureEnabled()) {
-        java.srcDirs += [
-          // React Codegen files
-          "${project.buildDir}/generated/source/codegen/java"
-        ]
-      }
-    }
-  }
 }
 
 repositories {
