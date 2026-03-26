@@ -7,10 +7,13 @@
 
 #include "JHybridVersionCheckSpec.hpp"
 
-
+// Forward declaration of `InstallSource` to properly resolve imports.
+namespace margelo::nitro::nitroversioncheck { enum class InstallSource; }
 
 #include <string>
+#include "InstallSource.hpp"
 #include <optional>
+#include "JInstallSource.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/JPromise.hpp>
 
@@ -65,10 +68,10 @@ namespace margelo::nitro::nitroversioncheck {
     auto __result = method(_javaPart);
     return __result->toStdString();
   }
-  std::optional<std::string> JHybridVersionCheckSpec::getInstallSource() {
-    static const auto method = javaClassStatic()->getMethod<jni::local_ref<jni::JString>()>("getInstallSource");
+  std::optional<InstallSource> JHybridVersionCheckSpec::getInstallSource() {
+    static const auto method = javaClassStatic()->getMethod<jni::local_ref<JInstallSource>()>("getInstallSource");
     auto __result = method(_javaPart);
-    return __result != nullptr ? std::make_optional(__result->toStdString()) : std::nullopt;
+    return __result != nullptr ? std::make_optional(__result->toCpp()) : std::nullopt;
   }
 
   // Methods
