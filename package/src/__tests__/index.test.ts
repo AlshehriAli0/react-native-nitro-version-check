@@ -33,14 +33,9 @@ describe("VersionCheck API", () => {
       expect(typeof VersionCheck.packageName).toBe("string");
     });
 
-    it("should have optional installSource property", () => {
+    it("should have installSource property", () => {
       expect(VersionCheck.installSource).toBeDefined();
-      expect(
-        VersionCheck.installSource === undefined ||
-          VersionCheck.installSource === "appstore" ||
-          VersionCheck.installSource === "testflight" ||
-          VersionCheck.installSource === "playstore"
-      ).toBe(true);
+      expect(["appstore", "testflight", "playstore", "sideloaded"]).toContain(VersionCheck.installSource);
     });
 
     it("should have sync method getCountry", () => {
@@ -72,6 +67,7 @@ describe("VersionCheck API", () => {
       expect(typeof VersionCheck.version).toBe("string");
       expect(typeof VersionCheck.buildNumber).toBe("string");
       expect(typeof VersionCheck.packageName).toBe("string");
+      expect(["appstore", "testflight", "playstore", "sideloaded"]).toContain(VersionCheck.installSource);
     });
 
     it("should have consistent version format", () => {
@@ -216,7 +212,7 @@ describe("VersionCheck API", () => {
       expect(typeof version).toBe("string");
       expect(typeof buildNumber).toBe("string");
       expect(typeof packageName).toBe("string");
-      expect(installSource === undefined || typeof installSource === "string").toBe(true);
+      expect(["appstore", "testflight", "playstore", "sideloaded"]).toContain(installSource);
     });
 
     it("should support destructuring with getCountry", () => {
@@ -265,10 +261,7 @@ describe("VersionCheck API", () => {
 
     it("should support install source detection", () => {
       const source = VersionCheck.installSource;
-
-      if (source !== undefined) {
-        expect(["appstore", "testflight", "playstore"]).toContain(source);
-      }
+      expect(["appstore", "testflight", "playstore", "sideloaded"]).toContain(source);
     });
 
     it("should support region-specific store URLs", async () => {

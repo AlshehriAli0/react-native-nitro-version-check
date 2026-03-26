@@ -30,14 +30,14 @@ class HybridVersionCheck : HybridVersionCheckSpec() {
 
     public override val packageName = packageInfo?.packageName
         ?: error("[VersionCheck] Failed to read 'packageName' from PackageInfo")
-    public override val installSource: InstallSource? = run {
+    public override val installSource: InstallSource = run {
         val installer = if (android.os.Build.VERSION.SDK_INT >= 30) {
             context?.packageManager?.getInstallSourceInfo(context.packageName)?.installingPackageName
         } else {
             @Suppress("DEPRECATION")
             context?.packageManager?.getInstallerPackageName(context.packageName)
         }
-        if (installer != null) InstallSource.PLAYSTORE else null
+        if (installer != null) InstallSource.PLAYSTORE else InstallSource.SIDELOADED
     }
 
     override fun getCountry(): String {

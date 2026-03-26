@@ -12,10 +12,10 @@ namespace margelo::nitro::nitroversioncheck { enum class InstallSource; }
 
 #include <string>
 #include "InstallSource.hpp"
-#include <optional>
 #include "JInstallSource.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/JPromise.hpp>
+#include <optional>
 
 namespace margelo::nitro::nitroversioncheck {
 
@@ -62,10 +62,10 @@ namespace margelo::nitro::nitroversioncheck {
     auto __result = method(_javaPart);
     return __result->toStdString();
   }
-  std::optional<InstallSource> JHybridVersionCheckSpec::getInstallSource() {
+  InstallSource JHybridVersionCheckSpec::getInstallSource() {
     static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JInstallSource>()>("getInstallSource");
     auto __result = method(_javaPart);
-    return __result != nullptr ? std::make_optional(__result->toCpp()) : std::nullopt;
+    return __result->toCpp();
   }
 
   // Methods

@@ -15,10 +15,10 @@ class HybridVersionCheck: HybridVersionCheckSpec {
         ?? { fatalError("[VersionCheck] Failed to read 'buildNumber' (CFBundleVersion) from Info.plist") }()
     var packageName = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String
         ?? { fatalError("[VersionCheck] Failed to read 'packageName' (CFBundleIdentifier) from Info.plist") }()
-    var installSource: InstallSource? = {
+    var installSource: InstallSource = {
         guard let receiptURL = Bundle.main.appStoreReceiptURL,
               FileManager.default.fileExists(atPath: receiptURL.path) else {
-            return nil
+            return .sideloaded
         }
         if receiptURL.lastPathComponent == "sandboxReceipt" {
             return .testflight

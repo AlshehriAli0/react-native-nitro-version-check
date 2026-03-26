@@ -32,6 +32,7 @@ namespace margelo::nitro::nitroversioncheck {
     APPSTORE      SWIFT_NAME(appstore) = 0,
     TESTFLIGHT      SWIFT_NAME(testflight) = 1,
     PLAYSTORE      SWIFT_NAME(playstore) = 2,
+    SIDELOADED      SWIFT_NAME(sideloaded) = 3,
   } CLOSED_ENUM;
 
 } // namespace margelo::nitro::nitroversioncheck
@@ -47,6 +48,7 @@ namespace margelo::nitro {
         case hashString("appstore"): return margelo::nitro::nitroversioncheck::InstallSource::APPSTORE;
         case hashString("testflight"): return margelo::nitro::nitroversioncheck::InstallSource::TESTFLIGHT;
         case hashString("playstore"): return margelo::nitro::nitroversioncheck::InstallSource::PLAYSTORE;
+        case hashString("sideloaded"): return margelo::nitro::nitroversioncheck::InstallSource::SIDELOADED;
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert \"" + unionValue + "\" to enum InstallSource - invalid value!");
       }
@@ -56,6 +58,7 @@ namespace margelo::nitro {
         case margelo::nitro::nitroversioncheck::InstallSource::APPSTORE: return JSIConverter<std::string>::toJSI(runtime, "appstore");
         case margelo::nitro::nitroversioncheck::InstallSource::TESTFLIGHT: return JSIConverter<std::string>::toJSI(runtime, "testflight");
         case margelo::nitro::nitroversioncheck::InstallSource::PLAYSTORE: return JSIConverter<std::string>::toJSI(runtime, "playstore");
+        case margelo::nitro::nitroversioncheck::InstallSource::SIDELOADED: return JSIConverter<std::string>::toJSI(runtime, "sideloaded");
         default: [[unlikely]]
           throw std::invalid_argument("Cannot convert InstallSource to JS - invalid value: "
                                     + std::to_string(static_cast<int>(arg)) + "!");
@@ -70,6 +73,7 @@ namespace margelo::nitro {
         case hashString("appstore"):
         case hashString("testflight"):
         case hashString("playstore"):
+        case hashString("sideloaded"):
           return true;
         default:
           return false;

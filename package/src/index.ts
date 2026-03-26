@@ -68,10 +68,14 @@ export const VersionCheck = {
    */
   packageName,
   /**
-   * Where the app was installed from, or `undefined` for dev/sideloaded builds.
+   * Where the app was installed from.
    *
-   * - iOS: `"appstore"` | `"testflight"` | `undefined`
-   * - Android: `"playstore"` | `undefined`
+   * - iOS: `"appstore"` | `"testflight"` | `"sideloaded"`
+   * - Android: `"playstore"` | `"sideloaded"`
+   *
+   * On iOS, `"sideloaded"` indicates a development build (e.g. running from Xcode).
+   * On Android, `"sideloaded"` means the app was installed via APK/ADB — this
+   * could be a dev build or a release APK installed outside the Play Store.
    *
    * @example
    * ```ts

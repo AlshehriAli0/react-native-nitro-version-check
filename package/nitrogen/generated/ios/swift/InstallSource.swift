@@ -23,6 +23,8 @@ public extension InstallSource {
         self = .testflight
       case "playstore":
         self = .playstore
+      case "sideloaded":
+        self = .sideloaded
       default:
         return nil
     }
@@ -39,6 +41,8 @@ public extension InstallSource {
         return "testflight"
       case .playstore:
         return "playstore"
+      case .sideloaded:
+        return "sideloaded"
     }
   }
 }

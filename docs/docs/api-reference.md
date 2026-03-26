@@ -20,7 +20,7 @@ import { VersionCheck } from 'react-native-nitro-version-check'
 | `version` | `string` | App version (`CFBundleShortVersionString` on iOS, `versionName` on Android) |
 | `buildNumber` | `string` | Build number (`CFBundleVersion` on iOS, `versionCode` on Android) |
 | `packageName` | `string` | Bundle ID (iOS) / Application ID (Android) |
-| `installSource` | `string \| undefined` | `"appstore"`, `"testflight"`, `"playstore"`, or `undefined` for dev/sideloaded builds |
+| `installSource` | `string` | `"appstore"`, `"testflight"`, `"playstore"`, or `"sideloaded"`. On iOS, `"sideloaded"` indicates a dev build. On Android, it means the app was installed via APK/ADB (dev or release). |
 
 ### Methods
 

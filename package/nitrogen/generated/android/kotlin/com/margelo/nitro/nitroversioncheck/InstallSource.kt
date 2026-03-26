@@ -18,7 +18,8 @@ import com.facebook.proguard.annotations.DoNotStrip
 enum class InstallSource(@DoNotStrip @Keep val value: Int) {
   APPSTORE(0),
   TESTFLIGHT(1),
-  PLAYSTORE(2);
+  PLAYSTORE(2),
+  SIDELOADED(3);
 
   companion object
 }
