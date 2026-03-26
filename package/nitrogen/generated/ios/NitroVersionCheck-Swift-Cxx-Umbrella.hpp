@@ -10,9 +10,12 @@
 // Forward declarations of C++ defined types
 // Forward declaration of `HybridVersionCheckSpec` to properly resolve imports.
 namespace margelo::nitro::nitroversioncheck { class HybridVersionCheckSpec; }
+// Forward declaration of `InstallSource` to properly resolve imports.
+namespace margelo::nitro::nitroversioncheck { enum class InstallSource; }
 
 // Include C++ defined types
 #include "HybridVersionCheckSpec.hpp"
+#include "InstallSource.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>

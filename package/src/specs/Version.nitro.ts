@@ -1,5 +1,7 @@
 import type { HybridObject } from "react-native-nitro-modules";
 
+export type InstallSource = "appstore" | "testflight" | "playstore";
+
 export interface VersionCheck
   extends HybridObject<{
     ios: "swift";
@@ -8,7 +10,7 @@ export interface VersionCheck
   readonly version: string;
   readonly buildNumber: string;
   readonly packageName: string;
-  readonly installSource: string | undefined;
+  readonly installSource: InstallSource | undefined;
   getCountry(): string;
   getStoreUrl(countryCode?: string): Promise<string>;
   getLatestVersion(countryCode?: string): Promise<string>;

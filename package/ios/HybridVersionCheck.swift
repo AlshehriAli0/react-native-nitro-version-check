@@ -9,25 +9,34 @@ class HybridVersionCheck: HybridVersionCheckSpec {
         return URLSession(configuration: config)
     }()
 
-    var version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
-    var buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "unknown"
-    var packageName = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String ?? "unknown"
-    var installSource: String? = {
+    var version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        ?? { fatalError("[VersionCheck] Failed to read 'version' (CFBundleShortVersionString) from Info.plist") }()
+    var buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+        ?? { fatalError("[VersionCheck] Failed to read 'buildNumber' (CFBundleVersion) from Info.plist") }()
+    var packageName = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String
+        ?? { fatalError("[VersionCheck] Failed to read 'packageName' (CFBundleIdentifier) from Info.plist") }()
+    var installSource: InstallSource? = {
         guard let receiptURL = Bundle.main.appStoreReceiptURL,
               FileManager.default.fileExists(atPath: receiptURL.path) else {
             return nil
         }
         if receiptURL.lastPathComponent == "sandboxReceipt" {
-            return "testflight"
+            return .testflight
         }
-        return "appstore"
+        return .appstore
     }()
 
     func getCountry() throws -> String {
         if #available(iOS 16, *) {
-            return Locale.current.region?.identifier ?? "unknown"
+            guard let region = Locale.current.region?.identifier else {
+                throw NSError(domain: "VersionCheck", code: 4, userInfo: [NSLocalizedDescriptionKey: "Failed to determine device 'country' (Locale.current.region)"])
+            }
+            return region
         }
-        return Locale.current.regionCode ?? "unknown"
+        guard let regionCode = Locale.current.regionCode else {
+            throw NSError(domain: "VersionCheck", code: 4, userInfo: [NSLocalizedDescriptionKey: "Failed to determine device 'country' (Locale.current.regionCode)"])
+        }
+        return regionCode
     }
 
     func getStoreUrl(countryCode: String? = nil) throws -> Promise<String> {

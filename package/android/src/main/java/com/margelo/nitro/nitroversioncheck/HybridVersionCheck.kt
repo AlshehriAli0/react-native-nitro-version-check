@@ -16,28 +16,33 @@ class HybridVersionCheck : HybridVersionCheckSpec() {
         private val packageInfo = context?.packageManager?.getPackageInfo(context.packageName, 0)
     }
 
-    public override val version = packageInfo?.versionName ?: "unknown"
+    public override val version = packageInfo?.versionName
+        ?: error("[VersionCheck] Failed to read 'version' (versionName) from PackageInfo")
 
     public override val buildNumber = if (android.os.Build.VERSION.SDK_INT >= 28) {
-        if (packageInfo?.longVersionCode != null) packageInfo.longVersionCode.toString() else "unknown"
+        packageInfo?.longVersionCode?.toString()
+            ?: error("[VersionCheck] Failed to read 'buildNumber' (longVersionCode) from PackageInfo")
     } else {
         @Suppress("DEPRECATION")
-        if (packageInfo?.versionCode != null) packageInfo.versionCode.toString() else "unknown"
+        packageInfo?.versionCode?.toString()
+            ?: error("[VersionCheck] Failed to read 'buildNumber' (versionCode) from PackageInfo")
     }
 
-    public override val packageName = packageInfo?.packageName ?: "unknown"
-    public override val installSource: String? = run {
+    public override val packageName = packageInfo?.packageName
+        ?: error("[VersionCheck] Failed to read 'packageName' from PackageInfo")
+    public override val installSource: InstallSource? = run {
         val installer = if (android.os.Build.VERSION.SDK_INT >= 30) {
             context?.packageManager?.getInstallSourceInfo(context.packageName)?.installingPackageName
         } else {
             @Suppress("DEPRECATION")
             context?.packageManager?.getInstallerPackageName(context.packageName)
         }
-        if (installer != null) "playstore" else null
+        if (installer != null) InstallSource.PLAYSTORE else null
     }
 
     override fun getCountry(): String {
-        return java.util.Locale.getDefault().country ?: "unknown"
+        return java.util.Locale.getDefault().country
+            ?: error("[VersionCheck] Failed to determine device 'country' (Locale.getDefault().country)")
     }
 
     override fun getStoreUrl(countryCode: String?): Promise<String> {

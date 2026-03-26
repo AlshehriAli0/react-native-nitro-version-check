@@ -1,7 +1,7 @@
 import { NitroModules } from "react-native-nitro-modules";
 import type { UpdateLevel } from "./semver";
 import { compareVersions, isNewerVersion } from "./semver";
-import type { VersionCheck as VersionCheckType } from "./specs/Version.nitro";
+import type { InstallSource, VersionCheck as VersionCheckType } from "./specs/Version.nitro";
 
 const HybridVersionCheck = NitroModules.createHybridObject<VersionCheckType>("VersionCheck");
 
@@ -185,4 +185,4 @@ export const VersionCheck = {
    */
   compareVersions,
 } as const;
-export type { UpdateLevel };
+export type { UpdateLevel, InstallSource };

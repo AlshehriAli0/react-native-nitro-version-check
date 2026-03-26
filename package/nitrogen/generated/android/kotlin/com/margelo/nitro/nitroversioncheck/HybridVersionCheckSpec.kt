@@ -40,7 +40,7 @@ abstract class HybridVersionCheckSpec: HybridObject() {
   
   @get:DoNotStrip
   @get:Keep
-  abstract val installSource: String?
+  abstract val installSource: InstallSource?
 
   // Methods
   @DoNotStrip

@@ -12,9 +12,11 @@
 // Forward declaration of `HybridVersionCheckSpec_cxx` to properly resolve imports.
 namespace NitroVersionCheck { class HybridVersionCheckSpec_cxx; }
 
-
+// Forward declaration of `InstallSource` to properly resolve imports.
+namespace margelo::nitro::nitroversioncheck { enum class InstallSource; }
 
 #include <string>
+#include "InstallSource.hpp"
 #include <optional>
 #include <NitroModules/Promise.hpp>
 
@@ -76,7 +78,7 @@ namespace margelo::nitro::nitroversioncheck {
       auto __result = _swiftPart.getPackageName();
       return __result;
     }
-    inline std::optional<std::string> getInstallSource() noexcept override {
+    inline std::optional<InstallSource> getInstallSource() noexcept override {
       auto __result = _swiftPart.getInstallSource();
       return __result;
     }

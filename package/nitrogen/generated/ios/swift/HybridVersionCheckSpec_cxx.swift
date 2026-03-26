@@ -142,12 +142,12 @@ open class HybridVersionCheckSpec_cxx {
     }
   }
   
-  public final var installSource: bridge.std__optional_std__string_ {
+  public final var installSource: bridge.std__optional_InstallSource_ {
     @inline(__always)
     get {
-      return { () -> bridge.std__optional_std__string_ in
+      return { () -> bridge.std__optional_InstallSource_ in
         if let __unwrappedValue = self.__implementation.installSource {
-          return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
+          return bridge.create_std__optional_InstallSource_(__unwrappedValue)
         } else {
           return .init()
         }

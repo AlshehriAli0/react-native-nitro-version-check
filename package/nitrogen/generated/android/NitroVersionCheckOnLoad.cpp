@@ -27,9 +27,9 @@ int initialize(JavaVM* vm) {
 }
 
 struct JHybridVersionCheckSpecImpl: public jni::JavaClass<JHybridVersionCheckSpecImpl, JHybridVersionCheckSpec::JavaPart> {
-  static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/nitroversioncheck/HybridVersionCheck;";
+  static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/nitroversioncheck/HybridVersionCheck;";
   static std::shared_ptr<JHybridVersionCheckSpec> create() {
-    static auto constructorFn = javaClassStatic()->getConstructor<JHybridVersionCheckSpecImpl::javaobject()>();
+    static const auto constructorFn = javaClassStatic()->getConstructor<JHybridVersionCheckSpecImpl::javaobject()>();
     jni::local_ref<JHybridVersionCheckSpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
     return javaPart->getJHybridVersionCheckSpec();
   }

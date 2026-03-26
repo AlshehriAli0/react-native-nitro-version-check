@@ -21,11 +21,11 @@ namespace margelo::nitro::nitroversioncheck {
   class JHybridVersionCheckSpec: public virtual HybridVersionCheckSpec, public virtual JHybridObject {
   public:
     struct JavaPart: public jni::JavaClass<JavaPart, JHybridObject::JavaPart> {
-      static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/nitroversioncheck/HybridVersionCheckSpec;";
+      static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/nitroversioncheck/HybridVersionCheckSpec;";
       std::shared_ptr<JHybridVersionCheckSpec> getJHybridVersionCheckSpec();
     };
     struct CxxPart: public jni::HybridClass<CxxPart, JHybridObject::CxxPart> {
-      static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/nitroversioncheck/HybridVersionCheckSpec$CxxPart;";
+      static constexpr auto kJavaDescriptor = "Lcom/margelo/nitro/nitroversioncheck/HybridVersionCheckSpec$CxxPart;";
       static jni::local_ref<jhybriddata> initHybrid(jni::alias_ref<jhybridobject> jThis);
       static void registerNatives();
       using HybridBase::HybridBase;
@@ -53,7 +53,7 @@ namespace margelo::nitro::nitroversioncheck {
     std::string getVersion() override;
     std::string getBuildNumber() override;
     std::string getPackageName() override;
-    std::optional<std::string> getInstallSource() override;
+    std::optional<InstallSource> getInstallSource() override;
 
   public:
     // Methods
