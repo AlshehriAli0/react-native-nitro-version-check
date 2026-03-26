@@ -18,8 +18,8 @@ namespace margelo::nitro::nitroversioncheck { enum class InstallSource; }
 
 #include <string>
 #include "InstallSource.hpp"
-#include <optional>
 #include <NitroModules/Promise.hpp>
+#include <optional>
 
 namespace margelo::nitro::nitroversioncheck {
 
@@ -51,7 +51,7 @@ namespace margelo::nitro::nitroversioncheck {
       virtual std::string getVersion() = 0;
       virtual std::string getBuildNumber() = 0;
       virtual std::string getPackageName() = 0;
-      virtual std::optional<InstallSource> getInstallSource() = 0;
+      virtual InstallSource getInstallSource() = 0;
 
     public:
       // Methods

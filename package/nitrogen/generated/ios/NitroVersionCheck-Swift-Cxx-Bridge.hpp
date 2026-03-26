@@ -10,8 +10,6 @@
 // Forward declarations of C++ defined types
 // Forward declaration of `HybridVersionCheckSpec` to properly resolve imports.
 namespace margelo::nitro::nitroversioncheck { class HybridVersionCheckSpec; }
-// Forward declaration of `InstallSource` to properly resolve imports.
-namespace margelo::nitro::nitroversioncheck { enum class InstallSource; }
 
 // Forward declarations of Swift defined types
 // Forward declaration of `HybridVersionCheckSpec_cxx` to properly resolve imports.
@@ -19,7 +17,6 @@ namespace NitroVersionCheck { class HybridVersionCheckSpec_cxx; }
 
 // Include C++ defined types
 #include "HybridVersionCheckSpec.hpp"
-#include "InstallSource.hpp"
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/PromiseHolder.hpp>
 #include <NitroModules/Result.hpp>
@@ -35,21 +32,6 @@ namespace NitroVersionCheck { class HybridVersionCheckSpec_cxx; }
  */
 namespace margelo::nitro::nitroversioncheck::bridge::swift {
 
-  // pragma MARK: std::optional<InstallSource>
-  /**
-   * Specialized version of `std::optional<InstallSource>`.
-   */
-  using std__optional_InstallSource_ = std::optional<InstallSource>;
-  inline std::optional<InstallSource> create_std__optional_InstallSource_(const InstallSource& value) noexcept {
-    return std::optional<InstallSource>(value);
-  }
-  inline bool has_value_std__optional_InstallSource_(const std::optional<InstallSource>& optional) noexcept {
-    return optional.has_value();
-  }
-  inline InstallSource get_std__optional_InstallSource_(const std::optional<InstallSource>& optional) noexcept {
-    return optional.value();
-  }
-  
   // pragma MARK: std::shared_ptr<Promise<std::string>>
   /**
    * Specialized version of `std::shared_ptr<Promise<std::string>>`.

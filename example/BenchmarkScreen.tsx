@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { ActivityIndicator, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { VersionCheck as NitroVC } from "react-native-nitro-version-check";
 import RNVersionCheck from "react-native-version-check";
 
@@ -10,7 +10,7 @@ type BenchmarkResult = {
   id: string;
   name: string;
   nitroMs: number;
-  bridgeMs: number;
+  bridgeMs: number | null;
   note?: string;
   section?: string;
 };
@@ -44,6 +44,9 @@ export default function BenchmarkScreen({ onBack }: { onBack: () => void }) {
     setRunning(true);
     setResults([]);
 
+    // Yield to let React render the "Running..." state before blocking the thread
+    await new Promise(resolve => requestAnimationFrame(resolve));
+
     const benchmarks: BenchmarkResult[] = [];
     const iter = ITERATIONS.toLocaleString();
 
@@ -63,6 +66,7 @@ export default function BenchmarkScreen({ onBack }: { onBack: () => void }) {
       nitro.packageName;
       nitro.version;
       nitro.buildNumber;
+      nitro.installSource;
       nitro.getCountry();
       bridge.getPackageName();
       bridge.getCurrentVersion();
@@ -78,6 +82,7 @@ export default function BenchmarkScreen({ onBack }: { onBack: () => void }) {
         nitro.packageName;
         nitro.version;
         nitro.buildNumber;
+        nitro.installSource;
         nitro.getCountry();
       }
       nitroAllTotal += performance.now() - ns;
@@ -97,7 +102,7 @@ export default function BenchmarkScreen({ onBack }: { onBack: () => void }) {
       name: `getAllInfo (${iter}x)`,
       nitroMs: nitroAllTotal / RUNS,
       bridgeMs: bridgeAllTotal / RUNS,
-      note: `pkg + version + build + country (avg of ${RUNS} runs)`,
+      note: `pkg + version + build + installSource + country (avg of ${RUNS} runs)`,
       section: "Real-world Usage",
     });
 
@@ -130,6 +135,14 @@ export default function BenchmarkScreen({ onBack }: { onBack: () => void }) {
       nitroMs: averageSync(() => nitro.buildNumber, ITERATIONS, RUNS),
       bridgeMs: averageSync(() => bridge.getCurrentBuildNumber(), ITERATIONS, RUNS),
       note: `Nitro: property | Bridge: fn call (avg of ${RUNS} runs)`,
+    });
+
+    benchmarks.push({
+      id: "install-source",
+      name: `installSource (${iter}x)`,
+      nitroMs: averageSync(() => nitro.installSource, ITERATIONS, RUNS),
+      bridgeMs: null,
+      note: `Nitro: property | Bridge: not supported (avg of ${RUNS} runs)`,
     });
 
     // getCountry — average over RUNS
@@ -165,7 +178,7 @@ export default function BenchmarkScreen({ onBack }: { onBack: () => void }) {
         <View style={{ width: 40 }} />
       </View>
 
-      <Text style={styles.subtitle}>Nitro (JSI) vs react-native-version-check (Bridge) — up to 3.7x faster</Text>
+      <Text style={styles.subtitle}>Nitro (JSI) vs react-native-version-check (Bridge) </Text>
 
       <TouchableOpacity
         style={[styles.runButton, running && styles.runButtonDisabled]}
@@ -173,7 +186,7 @@ export default function BenchmarkScreen({ onBack }: { onBack: () => void }) {
         disabled={running}
       >
         {running ? (
-          <ActivityIndicator color="#fff" size="small" />
+          <Text style={styles.runButtonText}>Running...</Text>
         ) : (
           <Text style={styles.runButtonText}>Run Benchmark</Text>
         )}
@@ -188,7 +201,7 @@ export default function BenchmarkScreen({ onBack }: { onBack: () => void }) {
         </View>
 
         {results.map(r => {
-          const speedup = r.bridgeMs > 0 && r.nitroMs > 0 ? r.bridgeMs / r.nitroMs : null;
+          const speedup = r.bridgeMs != null && r.bridgeMs > 0 && r.nitroMs > 0 ? r.bridgeMs / r.nitroMs : null;
 
           return (
             <View key={r.id}>
@@ -200,17 +213,17 @@ export default function BenchmarkScreen({ onBack }: { onBack: () => void }) {
                 <Text style={[styles.cell, styles.cellValue]}>
                   {r.nitroMs < 0 ? "err" : `${r.nitroMs.toFixed(1)}ms`}
                 </Text>
-                <Text style={[styles.cell, styles.cellValue]}>
-                  {r.bridgeMs < 0 ? "err" : `${r.bridgeMs.toFixed(1)}ms`}
+                <Text style={[styles.cell, styles.cellValue, r.bridgeMs == null && styles.naText]}>
+                  {r.bridgeMs == null ? "N/A" : r.bridgeMs < 0 ? "err" : `${r.bridgeMs.toFixed(1)}ms`}
                 </Text>
                 <Text
                   style={[
                     styles.cell,
                     styles.cellSpeed,
-                    speedup != null && speedup > 1 ? styles.faster : styles.slower,
+                    speedup != null && speedup > 1 ? styles.faster : speedup != null ? styles.slower : styles.naText,
                   ]}
                 >
-                  {speedup != null ? `${speedup.toFixed(1)}x` : "-"}
+                  {speedup != null ? `${speedup.toFixed(1)}x` : r.bridgeMs == null ? "N/A" : "-"}
                 </Text>
               </View>
               {r.note && <Text style={styles.note}>{r.note}</Text>}
@@ -329,6 +342,10 @@ const styles = StyleSheet.create({
   },
   slower: {
     color: "#FF3B30",
+  },
+  naText: {
+    color: "#ccc",
+    fontStyle: "italic",
   },
   note: {
     fontSize: 11,

@@ -17,8 +17,8 @@ namespace margelo::nitro::nitroversioncheck { enum class InstallSource; }
 
 #include <string>
 #include "InstallSource.hpp"
-#include <optional>
 #include <NitroModules/Promise.hpp>
+#include <optional>
 
 #include "NitroVersionCheck-Swift-Cxx-Umbrella.hpp"
 
@@ -78,9 +78,9 @@ namespace margelo::nitro::nitroversioncheck {
       auto __result = _swiftPart.getPackageName();
       return __result;
     }
-    inline std::optional<InstallSource> getInstallSource() noexcept override {
+    inline InstallSource getInstallSource() noexcept override {
       auto __result = _swiftPart.getInstallSource();
-      return __result;
+      return static_cast<InstallSource>(__result);
     }
 
   public:

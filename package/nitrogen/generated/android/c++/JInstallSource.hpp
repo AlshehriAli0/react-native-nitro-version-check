@@ -51,6 +51,9 @@ namespace margelo::nitro::nitroversioncheck {
         case InstallSource::PLAYSTORE:
           static const auto fieldPLAYSTORE = clazz->getStaticField<JInstallSource>("PLAYSTORE");
           return clazz->getStaticFieldValue(fieldPLAYSTORE);
+        case InstallSource::SIDELOADED:
+          static const auto fieldSIDELOADED = clazz->getStaticField<JInstallSource>("SIDELOADED");
+          return clazz->getStaticFieldValue(fieldSIDELOADED);
         default:
           std::string stringValue = std::to_string(static_cast<int>(value));
           throw std::invalid_argument("Invalid enum value (" + stringValue + "!");

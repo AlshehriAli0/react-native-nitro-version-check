@@ -40,7 +40,7 @@ import { VersionCheck } from 'react-native-nitro-version-check'
 console.log(VersionCheck.version)       // "1.2.0"
 console.log(VersionCheck.buildNumber)   // "42"
 console.log(VersionCheck.packageName)   // "com.example.app"
-console.log(VersionCheck.installSource) // "appstore" | "testflight" | "playstore" | undefined
+console.log(VersionCheck.installSource) // "appstore" | "testflight" | "playstore" | "sideloaded"
 console.log(VersionCheck.getCountry())  // "US"
 
 // Or destructure properties

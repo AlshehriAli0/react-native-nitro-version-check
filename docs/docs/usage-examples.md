@@ -17,7 +17,7 @@ const info = {
   version: VersionCheck.version,         // "1.2.0"
   build: VersionCheck.buildNumber,       // "42"
   package: VersionCheck.packageName,     // "com.example.app"
-  source: VersionCheck.installSource,    // "appstore" | undefined
+  source: VersionCheck.installSource,    // "appstore" | "sideloaded"
   country: VersionCheck.getCountry(),    // "US"
 }
 
@@ -89,8 +89,11 @@ switch (VersionCheck.installSource) {
   case 'playstore':
     console.log('Running Play Store build')
     break
-  default:
-    console.log('Development or sideloaded build')
+  case 'sideloaded':
+    // iOS: dev build (e.g. Xcode)
+    // Android: installed via APK/ADB (dev or release)
+    console.log('Sideloaded build')
+    break
 }
 ```
 
