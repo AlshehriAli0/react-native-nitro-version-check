@@ -89,9 +89,7 @@
     "npm": {
       "publish": true,
       "skipChecks": true,
-      "publishArgs": [
-        "--provenance --access public"
-      ]
+      "publishArgs": ["--provenance --access public"]
     },
     "github": {
       "release": true
@@ -166,6 +164,6 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-nitro-modules": "<0.35.0"
+    "react-native-nitro-modules": ">=0.33.0 <0.35.0"
   }
 }
