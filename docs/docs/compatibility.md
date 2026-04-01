@@ -11,12 +11,12 @@ This page documents the compatibility between different versions of `react-nativ
 
 | `react-native-nitro-version-check` Version | `react-native-nitro-modules` | Status |
 |---|---|---|
-| v1.x | 0.32.0 - 0.34.x | Stable |
-| v2.0.0+ | 0.35.0+ | Current |
+| v1.x | 0.33.0 - 0.34.x | Stable |
+| v2.x+ | 0.35.0+ | Current |
 
 ## Nitro 0.35.0 and Later
 
-**Version 2.x and newer is fully built around Nitro 0.35+ support.** All v1.x versions work with Nitro 0.32.0 - 0.34.x.
+**Version 2.x and newer is fully built around Nitro 0.35+ support.** All v1.x versions work with Nitro 0.33.0 - 0.34.x.
 
 
 ### Upgrading from v1.x to v2.0.0+
@@ -40,4 +40,4 @@ cd ios && pod install
 
 ### Staying on v1.x
 
-All v1.x versions work with Nitro 0.32.0 - 0.34.x. When you upgrade to Nitro 0.35.0+, you'll need to upgrade to v2.0.0+.
+All v1.x versions work with Nitro 0.33.0 - 0.34.x. When you upgrade to Nitro 0.35.0+, you'll need to upgrade to v2.x+.
