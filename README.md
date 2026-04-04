@@ -21,7 +21,7 @@ import { VersionCheck } from 'react-native-nitro-version-check'
 VersionCheck.version       // "1.2.0"
 VersionCheck.buildNumber   // "42"
 VersionCheck.packageName   // "com.example.app"
-VersionCheck.installSource // "appstore" | "testflight" | "playstore" | undefined
+VersionCheck.installSource // "appstore" | "testflight" | "playstore" | "sideloaded"
 
 // Or destructure properties
 const { version, buildNumber, packageName, installSource } = VersionCheck
