@@ -1,6 +1,6 @@
 {
   "name": "react-native-nitro-version-check",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "A lightweight, fast version-checking library for React Native, powered by Nitro Modules",
   "main": "lib/index",
   "module": "lib/index",
