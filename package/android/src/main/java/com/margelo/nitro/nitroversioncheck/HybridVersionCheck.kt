@@ -62,9 +62,11 @@ class HybridVersionCheck : HybridVersionCheckSpec() {
                 connection.readTimeout = TIMEOUT_MS
                 connection.setRequestProperty("User-Agent", "Mozilla/5.0")
                 val html = connection.inputStream.bufferedReader().use { it.readText() }
-                val regex = Regex("""\]\]\],\s*"(\d+\.\d+[\d.]*\d)"""")
-                val match = regex.find(html)
-                match?.groupValues?.get(1)
+                val versionPatterns = listOf(
+                    Regex("""\]\]\],\s*"(\d+\.\d+[\d.]*\d)""""),
+                    Regex(""""141":\[\[\["(\d+\.\d+[\d.]*\d)"""")
+                )
+                versionPatterns.firstNotNullOfOrNull { it.find(html)?.groupValues?.get(1) }
                     ?: throw Exception("Could not parse latest version from Play Store page")
             } catch (e: Exception) {
                 throw Exception("Failed to fetch latest version: ${e.message}", e)
