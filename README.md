@@ -7,6 +7,12 @@
 </p>
 
 <p align="center">
+  <a href="https://www.npmjs.com/package/react-native-nitro-version-check"><img src="https://img.shields.io/npm/v/react-native-nitro-version-check" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/react-native-nitro-version-check"><img src="https://img.shields.io/npm/dm/react-native-nitro-version-check" alt="npm downloads" /></a>
+  <a href="https://github.com/AlshehriAli0/react-native-nitro-version-check/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/react-native-nitro-version-check" alt="license" /></a>
+</p>
+
+<p align="center">
   A drop-in replacement for the unmaintained <a href="https://github.com/kimxogus/react-native-version-check"><code>react-native-version-check</code></a> — rewritten from scratch with <a href="https://github.com/mrousavy/nitro">Nitro Modules</a>.
 </p>
 
