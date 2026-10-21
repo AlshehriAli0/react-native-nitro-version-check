@@ -96,7 +96,8 @@
       "release": true
     },
     "hooks": {
-      "before:init": "bun run build"
+      "before:init": "bun run build",
+      "after:npm:bump": "biome format --write package.json"
     },
     "plugins": {
       "@release-it/conventional-changelog": {
